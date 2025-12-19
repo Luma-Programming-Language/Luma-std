@@ -1,9 +1,63 @@
 @module "arena"
 
-@use "memory" as memory
+@use "string" as string
+@use "memory" as mem
+@use "io" as io
+
+const ARENA_DEFAULT_SIZE: int = 1024 * 1024;
+const NULL: *void = cast<*void>(0);
 
 pub const Arena -> struct {
-    memory: *byte,
-    offset: int,
-    capacity: int,
+pub:
+    buf: *byte,
+    buf_len: int,
+    prev_offset: int,
+    curr_offset: int,
 };
+
+#returns_ownership
+pub const create_arena_sized -> fn (size: int) Arena {
+    let a: Arena;
+    a.buf = cast<*byte>(alloc(size));
+    a.buf_len = size;
+    a.curr_offset = 0;
+    a.prev_offset = 0;
+    return a;
+}
+
+#returns_ownership
+pub const create_arena -> fn () Arena {
+    return create_arena_sized(ARENA_DEFAULT_SIZE);
+}
+
+pub const reset_arena -> fn (a: *Arena) void {
+    a.curr_offset = 0;
+    a.prev_offset = 0;
+}
+
+#takes_ownership
+pub const free_arena -> fn (a: *Arena) void {
+    free(a.buf);
+    a.buf = NULL;
+    a.buf_len = 0;
+    a.curr_offset = 0;
+    a.prev_offset = 0;
+}
+
+pub const alloc_arena -> fn (a: *Arena, size: int) *void {
+    let alignment: int = 8;
+    let padding: int = (alignment - (a.curr_offset % alignment)) % alignment;
+    let aligned_offset: int = a.curr_offset + padding;
+
+    if (aligned_offset + size > a.buf_len) {
+        io::print_err("Arena allocator: insufficient space (requested: %d bytes, available: %d bytes)\n", 
+                [size, (a.buf_len - aligned_offset)]);
+        return NULL;
+    }
+
+    let ptr: *void = cast<*void>(cast<int>(a.buf) + aligned_offset);
+    a.prev_offset = aligned_offset;
+    a.curr_offset = aligned_offset + size;
+
+    return ptr;
+}
