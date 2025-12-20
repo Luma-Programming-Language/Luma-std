@@ -26,7 +26,18 @@ outputln("Took ", elapsed, " milliseconds");
 
 ## Functions
 
-### pub `usleep`
+### public `usleep`
+
+Sleeps for microseconds
+
+Uses the nanosleep system call for precise sleeping.
+
+Sleeps for microseconds
+
+Uses the nanosleep system call for precise sleeping.
+
+# Parameters
+* `usec` - Number of microseconds to sleep
 
 Sleeps for microseconds
 
@@ -38,17 +49,31 @@ Uses the nanosleep system call for precise sleeping.
 # Returns
 0 on success, negative error code on failure
 
-# Example
-```luma
-time::usleep(500000); // Sleep for 0.5 seconds
-```
 
 **Signature:**
 ```luma
 pub const usleep -> fn(usec: int) int;
 ```
 
-### pub `to_millis`
+**Parameters:**
+* `usec` - Number of microseconds to sleep
+
+**Returns:**
+0 on success, negative error code on failure
+
+**Example:**
+```luma
+time::usleep(500000); // Sleep for 0.5 seconds
+```
+
+### public `to_millis`
+
+Converts TimeSpec to milliseconds
+
+Converts TimeSpec to milliseconds
+
+# Parameters
+* `t` - TimeSpec to convert
 
 Converts TimeSpec to milliseconds
 
@@ -63,7 +88,20 @@ Time in milliseconds
 pub const to_millis -> fn(t: TimeSpec) int;
 ```
 
-### pub `to_micros`
+**Parameters:**
+* `t` - TimeSpec to convert
+
+**Returns:**
+Time in milliseconds
+
+### public `to_micros`
+
+Converts TimeSpec to microseconds
+
+Converts TimeSpec to microseconds
+
+# Parameters
+* `t` - TimeSpec to convert
 
 Converts TimeSpec to microseconds
 
@@ -78,7 +116,20 @@ Time in microseconds
 pub const to_micros -> fn(t: TimeSpec) int;
 ```
 
-### pub `to_nanos`
+**Parameters:**
+* `t` - TimeSpec to convert
+
+**Returns:**
+Time in microseconds
+
+### public `to_nanos`
+
+Converts TimeSpec to nanoseconds
+
+Converts TimeSpec to nanoseconds
+
+# Parameters
+* `t` - TimeSpec to convert
 
 Converts TimeSpec to nanoseconds
 
@@ -93,7 +144,21 @@ Time in nanoseconds
 pub const to_nanos -> fn(t: TimeSpec) int;
 ```
 
-### pub `clock_gettime`
+**Parameters:**
+* `t` - TimeSpec to convert
+
+**Returns:**
+Time in nanoseconds
+
+### public `clock_gettime`
+
+Gets current time from system clock
+
+Gets current time from system clock
+
+# Parameters
+* `clk_id` - Clock identifier (use CLOCK_REALTIME)
+* `ts` - Pointer to TimeSpec to fill
 
 Gets current time from system clock
 
@@ -109,7 +174,14 @@ Gets current time from system clock
 pub const clock_gettime -> fn(clk_id: int, ts: *TimeSpec) int;
 ```
 
-### pub `now`
+**Parameters:**
+* `clk_id` - Clock identifier (use CLOCK_REALTIME)
+* `ts` - Pointer to TimeSpec to fill
+
+**Returns:**
+0 on success, negative error code on failure
+
+### public `now`
 
 Gets current time
 
@@ -120,13 +192,28 @@ Current time as TimeSpec
 ```luma
 let current: TimeSpec = time::now();
 ```
+Gets current time
+
+Gets current time
+
+# Returns
+Current time as TimeSpec
+
 
 **Signature:**
 ```luma
 pub const now -> fn() TimeSpec;
 ```
 
-### pub `timer_start`
+**Returns:**
+Current time as TimeSpec
+
+**Example:**
+```luma
+let current: TimeSpec = time::now();
+```
+
+### public `timer_start`
 
 Starts a timer
 
@@ -141,13 +228,46 @@ let timer: Timer = time::timer_start();
 // ... do work ...
 let ms: int = time::timer_elapsed_ms(timer);
 ```
+Starts a timer
+
+Captures the current time as the start point for elapsed time measurements.
+
+Starts a timer
+
+Captures the current time as the start point for elapsed time measurements.
+
+# Returns
+Timer initialized with current time
+
 
 **Signature:**
 ```luma
 pub const timer_start -> fn() Timer;
 ```
 
-### pub `timespec_sub`
+**Returns:**
+Timer initialized with current time
+
+**Example:**
+```luma
+let timer: Timer = time::timer_start();
+// ... do work ...
+let ms: int = time::timer_elapsed_ms(timer);
+```
+
+### public `timespec_sub`
+
+Subtracts two TimeSpec values
+
+Calculates the difference between two time points, handling nanosecond borrowing.
+
+Subtracts two TimeSpec values
+
+Calculates the difference between two time points, handling nanosecond borrowing.
+
+# Parameters
+* `a` - Later time
+* `b` - Earlier time
 
 Subtracts two TimeSpec values
 
@@ -165,7 +285,22 @@ Duration between the two times
 pub const timespec_sub -> fn(a: TimeSpec, b: TimeSpec) TimeSpec;
 ```
 
-### pub `elapsed_ms`
+**Parameters:**
+* `a` - Later time
+* `b` - Earlier time
+
+**Returns:**
+Duration between the two times
+
+### public `elapsed_ms`
+
+Calculates elapsed time in milliseconds
+
+Calculates elapsed time in milliseconds
+
+# Parameters
+* `start` - Start time
+* `end` - End time
 
 Calculates elapsed time in milliseconds
 
@@ -176,7 +311,20 @@ Calculates elapsed time in milliseconds
 # Returns
 Elapsed time in milliseconds
 
-# Example
+
+**Signature:**
+```luma
+pub const elapsed_ms -> fn(start: TimeSpec, end: TimeSpec) int;
+```
+
+**Parameters:**
+* `start` - Start time
+* `end` - End time
+
+**Returns:**
+Elapsed time in milliseconds
+
+**Example:**
 ```luma
 let start: TimeSpec = time::now();
 // ... do work ...
@@ -184,12 +332,14 @@ let end: TimeSpec = time::now();
 let ms: int = time::elapsed_ms(start, end);
 ```
 
-**Signature:**
-```luma
-pub const elapsed_ms -> fn(start: TimeSpec, end: TimeSpec) int;
-```
+### public `timer_elapsed_ms`
 
-### pub `timer_elapsed_ms`
+Gets elapsed time from a timer in milliseconds
+
+Gets elapsed time from a timer in milliseconds
+
+# Parameters
+* `t` - Timer started with timer_start()
 
 Gets elapsed time from a timer in milliseconds
 
@@ -199,33 +349,40 @@ Gets elapsed time from a timer in milliseconds
 # Returns
 Milliseconds elapsed since timer was started
 
-# Example
-```luma
-let timer: Timer = time::timer_start();
-// ... do work ...
-outputln("Elapsed: ", time::timer_elapsed_ms(timer), "ms");
-```
 
 **Signature:**
 ```luma
 pub const timer_elapsed_ms -> fn(t: Timer) int;
 ```
 
+**Parameters:**
+* `t` - Timer started with timer_start()
+
+**Returns:**
+Milliseconds elapsed since timer was started
+
+**Example:**
+```luma
+let timer: Timer = time::timer_start();
+// ... do work ...
+outputln("Elapsed: ", time::timer_elapsed_ms(timer), "ms");
+```
+
 ## Variables
 
-### priv `NANOSLEEP`
+### private `NANOSLEEP`
 
 **Type:** int (constant)
 
 Nanosleep system call number
 
-### priv `CLOCK_GETTIME`
+### private `CLOCK_GETTIME`
 
 **Type:** int (constant)
 
 Clock_gettime system call number
 
-### priv `CLOCK_REALTIME`
+### private `CLOCK_REALTIME`
 
 **Type:** int (constant)
 

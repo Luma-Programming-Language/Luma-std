@@ -11,9 +11,9 @@
 
 ## Functions
 
-### pub `main`
+### public `main`
 
-*No documentation available*
+This is only used to generate the docs. Do not worry about this
 
 **Signature:**
 ```luma

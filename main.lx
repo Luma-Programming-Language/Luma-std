@@ -1,0 +1,5 @@
+@module "main"
+
+/// This is only used to generate the docs. Do not worry about this
+
+pub const main -> fn () int  { return 0; }

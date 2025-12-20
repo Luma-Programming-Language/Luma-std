@@ -34,7 +34,22 @@ output(fx::RESET);
 
 ## Functions
 
-### pub `fg_rgb`
+### public `fg_rgb`
+
+Creates a foreground RGB color escape sequence
+
+Generates an ANSI escape code for 24-bit true color.
+Requires terminal support for RGB colors.
+
+Creates a foreground RGB color escape sequence
+
+Generates an ANSI escape code for 24-bit true color.
+Requires terminal support for RGB colors.
+
+# Parameters
+* `r` - Red component (0-255)
+* `g` - Green component (0-255)
+* `b` - Blue component (0-255)
 
 Creates a foreground RGB color escape sequence
 
@@ -49,7 +64,21 @@ Requires terminal support for RGB colors.
 # Returns
 ANSI escape sequence string for the RGB color
 
-# Example
+
+**Signature:**
+```luma
+#returns_ownership pub const fg_rgb -> fn(r: int, g: int, b: int) *char;
+```
+
+**Parameters:**
+* `r` - Red component (0-255)
+* `g` - Green component (0-255)
+* `b` - Blue component (0-255)
+
+**Returns:**
+ANSI escape sequence string for the RGB color
+
+**Example:**
 ```luma
 let purple: *byte = fx::fg_rgb(128, 0, 128);
 defer { free(purple); }
@@ -58,12 +87,22 @@ output("Purple text");
 output(fx::RESET);
 ```
 
-**Signature:**
-```luma
-#returns_ownership pub const fg_rgb -> fn(r: int, g: int, b: int) *char;
-```
+### public `bg_rgb`
 
-### pub `bg_rgb`
+Creates a background RGB color escape sequence
+
+Generates an ANSI escape code for 24-bit true color background.
+Requires terminal support for RGB colors.
+
+Creates a background RGB color escape sequence
+
+Generates an ANSI escape code for 24-bit true color background.
+Requires terminal support for RGB colors.
+
+# Parameters
+* `r` - Red component (0-255)
+* `g` - Green component (0-255)
+* `b` - Blue component (0-255)
 
 Creates a background RGB color escape sequence
 
@@ -78,7 +117,21 @@ Requires terminal support for RGB colors.
 # Returns
 ANSI escape sequence string for the RGB background color
 
-# Example
+
+**Signature:**
+```luma
+#returns_ownership pub const bg_rgb -> fn(r: int, g: int, b: int) *char;
+```
+
+**Parameters:**
+* `r` - Red component (0-255)
+* `g` - Green component (0-255)
+* `b` - Blue component (0-255)
+
+**Returns:**
+ANSI escape sequence string for the RGB background color
+
+**Example:**
 ```luma
 let bg: *byte = fx::bg_rgb(50, 50, 50);
 defer { free(bg); }
@@ -87,12 +140,21 @@ output("Text on dark gray background");
 output(fx::RESET);
 ```
 
-**Signature:**
-```luma
-#returns_ownership pub const bg_rgb -> fn(r: int, g: int, b: int) *char;
-```
+### public `move_cursor`
 
-### pub `move_cursor`
+Moves cursor to specific row and column
+
+Creates an ANSI escape sequence to position the cursor.
+Coordinates are 1-based (top-left is row=1, col=1).
+
+Moves cursor to specific row and column
+
+Creates an ANSI escape sequence to position the cursor.
+Coordinates are 1-based (top-left is row=1, col=1).
+
+# Parameters
+* `row` - Row number (1-based)
+* `col` - Column number (1-based)
 
 Moves cursor to specific row and column
 
@@ -106,7 +168,20 @@ Coordinates are 1-based (top-left is row=1, col=1).
 # Returns
 ANSI escape sequence to move cursor
 
-# Example
+
+**Signature:**
+```luma
+#returns_ownership pub const move_cursor -> fn(row: int, col: int) *char;
+```
+
+**Parameters:**
+* `row` - Row number (1-based)
+* `col` - Column number (1-based)
+
+**Returns:**
+ANSI escape sequence to move cursor
+
+**Example:**
 ```luma
 let pos: *byte = fx::move_cursor(10, 20);
 defer { free(pos); }
@@ -114,308 +189,303 @@ output(pos);
 output("Text at row 10, column 20");
 ```
 
-**Signature:**
-```luma
-#returns_ownership pub const move_cursor -> fn(row: int, col: int) *char;
-```
-
 ## Variables
 
-### pub `RESET`
+### public `RESET`
 
 **Type:** *char (constant)
 
 Reset all terminal formatting to default
 
-### pub `BLACK`
+### public `BLACK`
 
 **Type:** *char (constant)
 
 Foreground color: Black
 
-### pub `RED`
+### public `RED`
 
 **Type:** *char (constant)
 
 Foreground color: Red
 
-### pub `GREEN`
+### public `GREEN`
 
 **Type:** *char (constant)
 
 Foreground color: Green
 
-### pub `YELLOW`
+### public `YELLOW`
 
 **Type:** *char (constant)
 
 Foreground color: Yellow
 
-### pub `BLUE`
+### public `BLUE`
 
 **Type:** *char (constant)
 
 Foreground color: Blue
 
-### pub `MAGENTA`
+### public `MAGENTA`
 
 **Type:** *char (constant)
 
 Foreground color: Magenta
 
-### pub `CYAN`
+### public `CYAN`
 
 **Type:** *char (constant)
 
 Foreground color: Cyan
 
-### pub `WHITE`
+### public `WHITE`
 
 **Type:** *char (constant)
 
 Foreground color: White
 
-### pub `BRIGHT_BLACK`
+### public `BRIGHT_BLACK`
 
 **Type:** *char (constant)
 
 Bright foreground color: Black (gray)
 
-### pub `BRIGHT_RED`
+### public `BRIGHT_RED`
 
 **Type:** *char (constant)
 
 Bright foreground color: Red
 
-### pub `BRIGHT_GREEN`
+### public `BRIGHT_GREEN`
 
 **Type:** *char (constant)
 
 Bright foreground color: Green
 
-### pub `BRIGHT_YELLOW`
+### public `BRIGHT_YELLOW`
 
 **Type:** *char (constant)
 
 Bright foreground color: Yellow
 
-### pub `BRIGHT_BLUE`
+### public `BRIGHT_BLUE`
 
 **Type:** *char (constant)
 
 Bright foreground color: Blue
 
-### pub `BRIGHT_MAGENTA`
+### public `BRIGHT_MAGENTA`
 
 **Type:** *char (constant)
 
 Bright foreground color: Magenta
 
-### pub `BRIGHT_CYAN`
+### public `BRIGHT_CYAN`
 
 **Type:** *char (constant)
 
 Bright foreground color: Cyan
 
-### pub `BRIGHT_WHITE`
+### public `BRIGHT_WHITE`
 
 **Type:** *char (constant)
 
 Bright foreground color: White
 
-### pub `BG_BLACK`
+### public `BG_BLACK`
 
 **Type:** *char (constant)
 
 Background color: Black
 
-### pub `BG_RED`
+### public `BG_RED`
 
 **Type:** *char (constant)
 
 Background color: Red
 
-### pub `BG_GREEN`
+### public `BG_GREEN`
 
 **Type:** *char (constant)
 
 Background color: Green
 
-### pub `BG_YELLOW`
+### public `BG_YELLOW`
 
 **Type:** *char (constant)
 
 Background color: Yellow
 
-### pub `BG_BLUE`
+### public `BG_BLUE`
 
 **Type:** *char (constant)
 
 Background color: Blue
 
-### pub `BG_MAGENTA`
+### public `BG_MAGENTA`
 
 **Type:** *char (constant)
 
 Background color: Magenta
 
-### pub `BG_CYAN`
+### public `BG_CYAN`
 
 **Type:** *char (constant)
 
 Background color: Cyan
 
-### pub `BG_WHITE`
+### public `BG_WHITE`
 
 **Type:** *char (constant)
 
 Background color: White
 
-### pub `BG_BRIGHT_BLACK`
+### public `BG_BRIGHT_BLACK`
 
 **Type:** *char (constant)
 
 Bright background color: Black (gray)
 
-### pub `BG_BRIGHT_RED`
+### public `BG_BRIGHT_RED`
 
 **Type:** *char (constant)
 
 Bright background color: Red
 
-### pub `BG_BRIGHT_GREEN`
+### public `BG_BRIGHT_GREEN`
 
 **Type:** *char (constant)
 
 Bright background color: Green
 
-### pub `BG_BRIGHT_YELLOW`
+### public `BG_BRIGHT_YELLOW`
 
 **Type:** *char (constant)
 
 Bright background color: Yellow
 
-### pub `BG_BRIGHT_BLUE`
+### public `BG_BRIGHT_BLUE`
 
 **Type:** *char (constant)
 
 Bright background color: Blue
 
-### pub `BG_BRIGHT_MAGENTA`
+### public `BG_BRIGHT_MAGENTA`
 
 **Type:** *char (constant)
 
 Bright background color: Magenta
 
-### pub `BG_BRIGHT_CYAN`
+### public `BG_BRIGHT_CYAN`
 
 **Type:** *char (constant)
 
 Bright background color: Cyan
 
-### pub `BG_BRIGHT_WHITE`
+### public `BG_BRIGHT_WHITE`
 
 **Type:** *char (constant)
 
 Bright background color: White
 
-### pub `BOLD`
+### public `BOLD`
 
 **Type:** *char (constant)
 
 Text style: Bold
 
-### pub `DIM`
+### public `DIM`
 
 **Type:** *char (constant)
 
 Text style: Dim (less bright)
 
-### pub `ITALIC`
+### public `ITALIC`
 
 **Type:** *char (constant)
 
 Text style: Italic (not always supported)
 
-### pub `UNDERLINE`
+### public `UNDERLINE`
 
 **Type:** *char (constant)
 
 Text style: Underline
 
-### pub `BLINK`
+### public `BLINK`
 
 **Type:** *char (constant)
 
 Text style: Blink (rarely supported)
 
-### pub `INVERT`
+### public `INVERT`
 
 **Type:** *char (constant)
 
 Text style: Invert (swap foreground and background)
 
-### pub `HIDDEN`
+### public `HIDDEN`
 
 **Type:** *char (constant)
 
 Text style: Hidden (invisible text)
 
-### pub `STRIKETHROUGH`
+### public `STRIKETHROUGH`
 
 **Type:** *char (constant)
 
 Text style: Strikethrough
 
-### pub `CLEAR_SCREEN`
+### public `CLEAR_SCREEN`
 
 **Type:** *char (constant)
 
 Clears entire screen
 
-### pub `CLEAR_LINE`
+### public `CLEAR_LINE`
 
 **Type:** *char (constant)
 
 Clears current line
 
-### pub `CURSOR_HOME`
+### public `CURSOR_HOME`
 
 **Type:** *char (constant)
 
 Moves cursor to home position (top-left)
 
-### pub `CURSOR_HIDE`
+### public `CURSOR_HIDE`
 
 **Type:** *char (constant)
 
 Hides the cursor
 
-### pub `CURSOR_SHOW`
+### public `CURSOR_SHOW`
 
 **Type:** *char (constant)
 
 Shows the cursor
 
-### pub `SAVE_CURSOR`
+### public `SAVE_CURSOR`
 
 **Type:** *char (constant)
 
 Saves current cursor position
 
-### pub `RESTORE_CURSOR`
+### public `RESTORE_CURSOR`
 
 **Type:** *char (constant)
 
 Restores saved cursor position
 
-### pub `CLEAR_TO_EOL`
+### public `CLEAR_TO_EOL`
 
 **Type:** *char (constant)
 
 Clears from cursor to end of line
 
-### pub `CLEAR_TO_EOS`
+### public `CLEAR_TO_EOS`
 
 **Type:** *char (constant)
 

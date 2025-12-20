@@ -21,7 +21,18 @@ for efficiency. Other trig functions are derived from sine.
 
 ## Functions
 
-### pub `rand`
+### public `rand`
+
+Simple linear congruential random number generator
+
+Updates the seed and returns a pseudo-random number.
+
+Simple linear congruential random number generator
+
+Updates the seed and returns a pseudo-random number.
+
+# Parameters
+* `seed` - Pointer to seed value (will be modified)
 
 Simple linear congruential random number generator
 
@@ -33,20 +44,29 @@ Updates the seed and returns a pseudo-random number.
 # Returns
 Pseudo-random integer
 
-# Example
-```luma
-let seed: int = 12345;
-let r1: int = math::rand(&seed);
-let r2: int = math::rand(&seed);
-```
 
 **Signature:**
 ```luma
 pub const rand -> fn(seed: *int) int;
 ```
 
-### pub `add`
+**Parameters:**
+* `seed` - Pointer to seed value (will be modified)
 
+**Returns:**
+Pseudo-random integer
+
+**Example:**
+```luma
+let seed: int = 12345;
+let r1: int = math::rand(&seed);
+let r2: int = math::rand(&seed);
+```
+
+### public `add`
+
+Adds two integers
+Adds two integers
 Adds two integers
 
 **Signature:**
@@ -54,8 +74,10 @@ Adds two integers
 pub const add -> fn(x: int, y: int) int;
 ```
 
-### pub `subtract`
+### public `subtract`
 
+Subtracts two integers
+Subtracts two integers
 Subtracts two integers
 
 **Signature:**
@@ -63,8 +85,10 @@ Subtracts two integers
 pub const subtract -> fn(x: int, y: int) int;
 ```
 
-### pub `multiply`
+### public `multiply`
 
+Multiplies two integers
+Multiplies two integers
 Multiplies two integers
 
 **Signature:**
@@ -72,7 +96,15 @@ Multiplies two integers
 pub const multiply -> fn(x: int, y: int) int;
 ```
 
-### pub `divide`
+### public `divide`
+
+Divides two integers with zero check
+
+Divides two integers with zero check
+
+# Parameters
+* `x` - Dividend
+* `y` - Divisor
 
 Divides two integers with zero check
 
@@ -88,7 +120,22 @@ Quotient, or 0 if divisor is zero (with error message)
 pub const divide -> fn(x: int, y: int) int;
 ```
 
-### pub `mod`
+**Parameters:**
+* `x` - Dividend
+* `y` - Divisor
+
+**Returns:**
+Quotient, or 0 if divisor is zero (with error message)
+
+### public `mod`
+
+Modulo operation with zero check
+
+Modulo operation with zero check
+
+# Parameters
+* `x` - Dividend
+* `y` - Modulus
 
 Modulo operation with zero check
 
@@ -104,7 +151,23 @@ Remainder, or 0 if modulus is zero (with error message)
 pub const mod -> fn(x: int, y: int) int;
 ```
 
-### pub `fib`
+**Parameters:**
+* `x` - Dividend
+* `y` - Modulus
+
+**Returns:**
+Remainder, or 0 if modulus is zero (with error message)
+
+### public `fib`
+
+Fibonacci number calculator (tail-recursive)
+
+Fibonacci number calculator (tail-recursive)
+
+# Parameters
+* `n` - Index of Fibonacci number to calculate
+* `a` - Accumulator (start with 0)
+* `b` - Accumulator (start with 1)
 
 Fibonacci number calculator (tail-recursive)
 
@@ -116,17 +179,34 @@ Fibonacci number calculator (tail-recursive)
 # Returns
 The nth Fibonacci number
 
-# Example
-```luma
-let fib10: int = math::fib(10, 0, 1); // 55
-```
 
 **Signature:**
 ```luma
 pub const fib -> fn(n: int, a: int, b: int) int;
 ```
 
-### pub `power`
+**Parameters:**
+* `n` - Index of Fibonacci number to calculate
+* `a` - Accumulator (start with 0)
+* `b` - Accumulator (start with 1)
+
+**Returns:**
+The nth Fibonacci number
+
+**Example:**
+```luma
+let fib10: int = math::fib(10, 0, 1); // 55
+```
+
+### public `power`
+
+Raises base to integer exponent
+
+Raises base to integer exponent
+
+# Parameters
+* `base` - Base value
+* `exponent` - Integer exponent
 
 Raises base to integer exponent
 
@@ -137,18 +217,28 @@ Raises base to integer exponent
 # Returns
 base^exponent
 
-# Example
-```luma
-let result: double = math::power(2.0, 10); // 1024.0
-```
 
 **Signature:**
 ```luma
 pub const power -> fn(base: double, exponent: int) double;
 ```
 
-### pub `max_size`
+**Parameters:**
+* `base` - Base value
+* `exponent` - Integer exponent
 
+**Returns:**
+base^exponent
+
+**Example:**
+```luma
+let result: double = math::power(2.0, 10); // 1024.0
+```
+
+### public `max_size`
+
+Returns maximum of two integers
+Returns maximum of two integers
 Returns maximum of two integers
 
 **Signature:**
@@ -156,8 +246,10 @@ Returns maximum of two integers
 pub const max_size -> fn(a: int, b: int) int;
 ```
 
-### pub `min_size`
+### public `min_size`
 
+Returns minimum of two integers
+Returns minimum of two integers
 Returns minimum of two integers
 
 **Signature:**
@@ -165,7 +257,20 @@ Returns minimum of two integers
 pub const min_size -> fn(a: int, b: int) int;
 ```
 
-### pub `sin`
+### public `sin`
+
+Sine function using lookup table interpolation
+
+Uses a 128-entry lookup table with linear interpolation for efficiency.
+Normalizes input to [0, 2π) and uses quadrant symmetry.
+
+Sine function using lookup table interpolation
+
+Uses a 128-entry lookup table with linear interpolation for efficiency.
+Normalizes input to [0, 2π) and uses quadrant symmetry.
+
+# Parameters
+* `a` - Angle in radians
 
 Sine function using lookup table interpolation
 
@@ -178,17 +283,31 @@ Normalizes input to [0, 2π) and uses quadrant symmetry.
 # Returns
 Sine of the angle (-1.0 to 1.0)
 
-# Example
-```luma
-let s: double = math::sin(math::PI / 2.0); // 1.0
-```
 
 **Signature:**
 ```luma
 pub const sin -> fn(a: double) double;
 ```
 
-### pub `cos`
+**Parameters:**
+* `a` - Angle in radians
+
+**Returns:**
+Sine of the angle (-1.0 to 1.0)
+
+**Example:**
+```luma
+let s: double = math::sin(math::PI / 2.0); // 1.0
+```
+
+### public `cos`
+
+Cosine function (derived from sine)
+
+Cosine function (derived from sine)
+
+# Parameters
+* `x` - Angle in radians
 
 Cosine function (derived from sine)
 
@@ -203,7 +322,20 @@ Cosine of the angle
 pub const cos -> fn(x: double) double;
 ```
 
-### pub `tan`
+**Parameters:**
+* `x` - Angle in radians
+
+**Returns:**
+Cosine of the angle
+
+### public `tan`
+
+Tangent function
+
+Tangent function
+
+# Parameters
+* `x` - Angle in radians
 
 Tangent function
 
@@ -218,8 +350,16 @@ Tangent of the angle
 pub const tan -> fn(x: double) double;
 ```
 
-### pub `sec`
+**Parameters:**
+* `x` - Angle in radians
 
+**Returns:**
+Tangent of the angle
+
+### public `sec`
+
+Secant function (1/cos)
+Secant function (1/cos)
 Secant function (1/cos)
 
 **Signature:**
@@ -227,8 +367,10 @@ Secant function (1/cos)
 pub const sec -> fn(x: double) double;
 ```
 
-### pub `csc`
+### public `csc`
 
+Cosecant function (1/sin)
+Cosecant function (1/sin)
 Cosecant function (1/sin)
 
 **Signature:**
@@ -236,8 +378,10 @@ Cosecant function (1/sin)
 pub const csc -> fn(x: double) double;
 ```
 
-### pub `cot`
+### public `cot`
 
+Cotangent function (cos/sin)
+Cotangent function (cos/sin)
 Cotangent function (cos/sin)
 
 **Signature:**
@@ -247,43 +391,43 @@ pub const cot -> fn(x: double) double;
 
 ## Variables
 
-### pub `PI`
+### public `PI`
 
 **Type:** double (constant)
 
 Pi constant (π ≈ 3.14159...)
 
-### pub `TWO_PI`
+### public `TWO_PI`
 
 **Type:** double (constant)
 
 Two pi (2π ≈ 6.28318...)
 
-### pub `HALF_PI`
+### public `HALF_PI`
 
 **Type:** double (constant)
 
 Half pi (π/2 ≈ 1.5708...)
 
-### pub `DEPTH`
+### public `DEPTH`
 
 **Type:** int (constant)
 
 Depth parameter for derivative calculations (unused)
 
-### pub `DT`
+### public `DT`
 
 **Type:** double (constant)
 
 Time delta for derivative calculations (unused)
 
-### pub `SIN_TABLE_COUNT`
+### public `SIN_TABLE_COUNT`
 
 **Type:** int (constant)
 
 Size of sine lookup table
 
-### pub `SIN_TABLE`
+### public `SIN_TABLE`
 
 **Type:** [double; 129] (constant)
 

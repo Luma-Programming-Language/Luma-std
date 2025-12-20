@@ -11,270 +11,210 @@
 
 ## Functions
 
-### pub `exit`
-
-*No documentation available*
+### public `exit`
 
 **Signature:**
 ```luma
 pub const exit -> fn(code: int) void;
 ```
 
-### pub `fork`
-
-*No documentation available*
+### public `fork`
 
 **Signature:**
 ```luma
 pub const fork -> fn() int;
 ```
 
-### pub `getpid`
-
-*No documentation available*
+### public `getpid`
 
 **Signature:**
 ```luma
 pub const getpid -> fn() int;
 ```
 
-### pub `getuid`
-
-*No documentation available*
+### public `getuid`
 
 **Signature:**
 ```luma
 pub const getuid -> fn() int;
 ```
 
-### pub `getgid`
-
-*No documentation available*
+### public `getgid`
 
 **Signature:**
 ```luma
 pub const getgid -> fn() int;
 ```
 
-### pub `kill`
-
-*No documentation available*
+### public `kill`
 
 **Signature:**
 ```luma
 pub const kill -> fn(pid: int, sig: int) int;
 ```
 
-### pub `wait4`
-
-*No documentation available*
+### public `wait4`
 
 **Signature:**
 ```luma
 pub const wait4 -> fn(pid: int, status: *int, options: int, rusage: *void) int;
 ```
 
-### pub `execve`
-
-*No documentation available*
+### public `execve`
 
 **Signature:**
 ```luma
 pub const execve -> fn(path: *char, argv: **char, envp: **char) int;
 ```
 
-### pub `read`
-
-*No documentation available*
+### public `read`
 
 **Signature:**
 ```luma
 pub const read -> fn(fd: int, buf: *void, count: int) int;
 ```
 
-### pub `write`
-
-*No documentation available*
+### public `write`
 
 **Signature:**
 ```luma
 pub const write -> fn(fd: int, buf: *void, count: int) int;
 ```
 
-### pub `open`
-
-*No documentation available*
+### public `open`
 
 **Signature:**
 ```luma
 pub const open -> fn(path: *char, flags: int, mode: int) int;
 ```
 
-### pub `close`
-
-*No documentation available*
+### public `close`
 
 **Signature:**
 ```luma
 pub const close -> fn(fd: int) int;
 ```
 
-### pub `lseek`
-
-*No documentation available*
+### public `lseek`
 
 **Signature:**
 ```luma
 pub const lseek -> fn(fd: int, offset: int, whence: int) int;
 ```
 
-### pub `pread`
-
-*No documentation available*
+### public `pread`
 
 **Signature:**
 ```luma
 pub const pread -> fn(fd: int, buf: *void, count: int, offset: int) int;
 ```
 
-### pub `pwrite`
-
-*No documentation available*
+### public `pwrite`
 
 **Signature:**
 ```luma
 pub const pwrite -> fn(fd: int, buf: *void, count: int, offset: int) int;
 ```
 
-### pub `dup`
-
-*No documentation available*
+### public `dup`
 
 **Signature:**
 ```luma
 pub const dup -> fn(oldfd: int) int;
 ```
 
-### pub `dup2`
-
-*No documentation available*
+### public `dup2`
 
 **Signature:**
 ```luma
 pub const dup2 -> fn(oldfd: int, newfd: int) int;
 ```
 
-### pub `pipe`
-
-*No documentation available*
+### public `pipe`
 
 **Signature:**
 ```luma
 pub const pipe -> fn(pipefd: *int) int;
 ```
 
-### pub `unlink`
-
-*No documentation available*
+### public `unlink`
 
 **Signature:**
 ```luma
 pub const unlink -> fn(path: *char) int;
 ```
 
-### pub `mkdir`
-
-*No documentation available*
+### public `mkdir`
 
 **Signature:**
 ```luma
 pub const mkdir -> fn(path: *char, mode: int) int;
 ```
 
-### pub `rmdir`
-
-*No documentation available*
+### public `rmdir`
 
 **Signature:**
 ```luma
 pub const rmdir -> fn(path: *char) int;
 ```
 
-### pub `chdir`
-
-*No documentation available*
+### public `chdir`
 
 **Signature:**
 ```luma
 pub const chdir -> fn(path: *char) int;
 ```
 
-### pub `getcwd`
-
-*No documentation available*
+### public `getcwd`
 
 **Signature:**
 ```luma
 pub const getcwd -> fn(buf: *char, size: int) *char;
 ```
 
-### pub `brk`
-
-*No documentation available*
+### public `brk`
 
 **Signature:**
 ```luma
 pub const brk -> fn(addr: *void) int;
 ```
 
-### pub `mmap`
-
-*No documentation available*
+### public `mmap`
 
 **Signature:**
 ```luma
 pub const mmap -> fn(addr: *void, length: int, prot: int, flags: int, fd: int, offset: int) *void;
 ```
 
-### pub `munmap`
-
-*No documentation available*
+### public `munmap`
 
 **Signature:**
 ```luma
 pub const munmap -> fn(addr: *void, length: int) int;
 ```
 
-### pub `is_error`
-
-*No documentation available*
+### public `is_error`
 
 **Signature:**
 ```luma
 pub const is_error -> fn(result: int) bool;
 ```
 
-### pub `get_errno`
-
-*No documentation available*
+### public `get_errno`
 
 **Signature:**
 ```luma
 pub const get_errno -> fn(result: int) int;
 ```
 
-### pub `write_str`
-
-*No documentation available*
+### public `write_str`
 
 **Signature:**
 ```luma
 pub const write_str -> fn(fd: int, s: *char) int;
 ```
 
-### pub `eprint`
-
-*No documentation available*
+### public `eprint`
 
 **Signature:**
 ```luma
