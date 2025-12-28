@@ -20,6 +20,66 @@ allocate memory that the caller must free. Use `defer { free(str); }` to ensure 
 
 ---
 
+## Structures
+
+### public `Slice`
+
+Returns the length of a null-terminated string
+
+Counts characters until the null terminator is found.
+
+# Parameters
+* `s` - String to measure
+
+# Returns
+Number of characters before null terminator
+
+# Example
+```luma
+let len: int = string::strlen("Hello");
+// len will be 5
+```
+
+**Fields:**
+
+- `ptr`: *char
+- `len`: int
+
+**Methods:**
+
+#### `slice_end()`
+
+```luma
+slice_end -> fn() *char
+```
+
+#### `null_terminated_slice()`
+
+```luma
+null_terminated_slice -> fn(s: *char) Slice
+```
+
+### public `String`
+
+**Fields:**
+
+- `slice`: Slice
+- `cap`: int
+
+**Methods:**
+
+#### `concat_strs()`
+
+```luma
+#returns_ownership concat_strs -> fn(start: *Slice, len: int) String
+```
+
+#### `as_slice()`
+
+```luma
+as_slice -> fn() Slice
+```
+
 ## Functions
 
 ### public `cat`
@@ -38,6 +98,13 @@ pub const cat -> fn(dest: *char, s1: *char, s2: *char) *char;
 **Signature:**
 ```luma
 pub const strlen -> fn(s: *char) int;
+```
+
+### public `free_string`
+
+**Signature:**
+```luma
+#takes_ownership pub const free_string -> fn(s: *String) void;
 ```
 
 ### public `from_byte`
@@ -225,43 +292,9 @@ output(&buffer[0]); // Prints "12345"
 
 ### public `strlen`
 
-Returns the length of a null-terminated string
-
-Counts characters until the null terminator is found.
-
-Returns the length of a null-terminated string
-
-Counts characters until the null terminator is found.
-
-# Parameters
-* `s` - String to measure
-
-Returns the length of a null-terminated string
-
-Counts characters until the null terminator is found.
-
-# Parameters
-* `s` - String to measure
-
-# Returns
-Number of characters before null terminator
-
-
 **Signature:**
 ```luma
 pub const strlen -> fn(s: *char) int;
-```
-
-**Parameters:**
-* `s` - String to measure
-
-**Returns:**
-Number of characters before null terminator
-
-**Example:**
-```luma
-let len: int = string::strlen("Hello");
-// len will be 5
 ```
 
 ### public `strcmp`

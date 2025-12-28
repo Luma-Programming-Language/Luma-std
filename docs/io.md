@@ -265,6 +265,13 @@ A pointer to a newly allocated null-terminated string containing the file conten
 or a null pointer (0) if an error occurs. The caller is responsible for freeing
 this memory.
 
+### public `write_buffer_to_file`
+
+**Signature:**
+```luma
+pub const write_buffer_to_file -> fn(path: *char, buffer: *char) int;
+```
+
 ## Variables
 
 ### private `INITIAL_BUFFER_SIZE`
