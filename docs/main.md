@@ -14,6 +14,8 @@
 ### public `main`
 
 This is only used to generate the docs. Do not worry about this
+This is only used to generate the docs. Do not worry about this
+This is only used to generate the docs. Do not worry about this
 
 **Signature:**
 ```luma

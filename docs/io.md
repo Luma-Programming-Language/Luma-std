@@ -3,8 +3,8 @@
 Input/Output operations module
 
 This module provides formatted printing functions and file reading capabilities.
-It supports basic format specifiers (%d, %s, %c) for printing different types
-and includes a dynamic buffer system for efficient file reading.
+It is completely self-contained with no external module dependencies.
+All required syscalls and memory operations are implemented locally.
 
 ## Table of Contents
 
@@ -15,148 +15,110 @@ and includes a dynamic buffer system for efficient file reading.
 
 ---
 
+## Structures
+
+### public `FormatArg`
+
+**Fields:**
+
+- `tag`: int
+- `str_ptr`: *char
+- `int_val`: int
+- `byte_val`: char
+
 ## Functions
 
-### public `print_int`
+### public `str_arg`
 
-Prints a formatted string with integer arguments to stdout
+**Signature:**
+```luma
+pub const str_arg -> fn(arg: *char) FormatArg;
+```
 
-This function performs simple printf-style formatting, supporting only the %d
-format specifier for integers. The format string is scanned character by character,
-and %d sequences are replaced with the corresponding integer from the args array.
+### public `int_arg`
 
-Prints a formatted string with integer arguments to stdout
+**Signature:**
+```luma
+pub const int_arg -> fn(arg: int) FormatArg;
+```
 
-This function performs simple printf-style formatting, supporting only the %d
-format specifier for integers. The format string is scanned character by character,
-and %d sequences are replaced with the corresponding integer from the args array.
+### public `byte_arg`
+
+**Signature:**
+```luma
+pub const byte_arg -> fn(arg: char) FormatArg;
+```
+
+### public `print`
+
+Prints a formatted string with mixed-type arguments to stdout
+
+This function performs printf-style formatting, supporting:
+* %d - integers
+* %s - strings
+* %c - bytes/characters
+* %f - floats (requires precision, e.g., %.2f)
+
+The number of arguments consumed is determined by the number of format
+specifiers in the format string. The args array is bounds-checked to
+prevent buffer overruns.
+
+Prints a formatted string with mixed-type arguments to stdout
+
+This function performs printf-style formatting, supporting:
+* %d - integers
+* %s - strings
+* %c - bytes/characters
+* %f - floats (requires precision, e.g., %.2f)
+
+The number of arguments consumed is determined by the number of format
+specifiers in the format string. The args array is bounds-checked to
+prevent buffer overruns.
 
 # Parameters
-* `s` - Format string containing text and %d placeholders
-* `args` - Array of up to 256 integers to substitute into the format string
+* `s` - Format string containing text and format placeholders
+* `args` - Array of FormatArg structs containing typed arguments
 
-Prints a formatted string with integer arguments to stdout
+Prints a formatted string with mixed-type arguments to stdout
 
-This function performs simple printf-style formatting, supporting only the %d
-format specifier for integers. The format string is scanned character by character,
-and %d sequences are replaced with the corresponding integer from the args array.
+This function performs printf-style formatting, supporting:
+* %d - integers
+* %s - strings
+* %c - bytes/characters
+* %f - floats (requires precision, e.g., %.2f)
+
+The number of arguments consumed is determined by the number of format
+specifiers in the format string. The args array is bounds-checked to
+prevent buffer overruns.
 
 # Parameters
-* `s` - Format string containing text and %d placeholders
-* `args` - Array of up to 256 integers to substitute into the format string
+* `s` - Format string containing text and format placeholders
+* `args` - Array of FormatArg structs containing typed arguments
 
 # Returns
 The number of bytes written to stdout, or an error code if writing fails
 
-# Memory
-Allocates a 256-byte temporary buffer which is automatically freed via defer
 
 **Signature:**
 ```luma
-pub const print_int -> fn(s: *char, args: [int; 256]) int;
+pub const print -> fn(s: *char, args: [FormatArg; 256]) int;
 ```
 
 **Parameters:**
-* `s` - Format string containing text and %d placeholders
-* `args` - Array of up to 256 integers to substitute into the format string
+* `s` - Format string containing text and format placeholders
+* `args` - Array of FormatArg structs containing typed arguments
 
 **Returns:**
 The number of bytes written to stdout, or an error code if writing fails
 
-### public `print_str`
-
-Prints a formatted string with string arguments to stdout
-
-This function performs simple printf-style formatting, supporting only the %s
-format specifier for strings. The format string is scanned character by character,
-and %s sequences are replaced with the corresponding string from the args array.
-
-Prints a formatted string with string arguments to stdout
-
-This function performs simple printf-style formatting, supporting only the %s
-format specifier for strings. The format string is scanned character by character,
-and %s sequences are replaced with the corresponding string from the args array.
-
-# Parameters
-* `s` - Format string containing text and %s placeholders
-* `args` - Array of up to 256 string pointers to substitute into the format string
-
-Prints a formatted string with string arguments to stdout
-
-This function performs simple printf-style formatting, supporting only the %s
-format specifier for strings. The format string is scanned character by character,
-and %s sequences are replaced with the corresponding string from the args array.
-
-# Parameters
-* `s` - Format string containing text and %s placeholders
-* `args` - Array of up to 256 string pointers to substitute into the format string
-
-# Returns
-The number of bytes written to stdout, or an error code if writing fails
-
-# Memory
-Allocates a 256-byte temporary buffer which is automatically freed via defer
-
-**Signature:**
+**Example:**
 ```luma
-pub const print_str -> fn(s: *char, args: [*char; 256]) int;
+let args: [FormatArg; 256];
+args[0] = str_arg("Alice");
+args[1] = int_arg(30);
+args[2] = byte_arg('A');
+print("Name: %s, Age: %d, Initial: %c\n", args);
 ```
-
-**Parameters:**
-* `s` - Format string containing text and %s placeholders
-* `args` - Array of up to 256 string pointers to substitute into the format string
-
-**Returns:**
-The number of bytes written to stdout, or an error code if writing fails
-
-### public `print_byte`
-
-Prints a formatted string with byte (character) arguments to stdout
-
-This function performs simple printf-style formatting, supporting only the %c
-format specifier for individual bytes/characters. The format string is scanned
-character by character, and %c sequences are replaced with the corresponding
-byte from the args array.
-
-Prints a formatted string with byte (character) arguments to stdout
-
-This function performs simple printf-style formatting, supporting only the %c
-format specifier for individual bytes/characters. The format string is scanned
-character by character, and %c sequences are replaced with the corresponding
-byte from the args array.
-
-# Parameters
-* `s` - Format string containing text and %c placeholders
-* `args` - Array of up to 256 bytes to substitute into the format string
-
-Prints a formatted string with byte (character) arguments to stdout
-
-This function performs simple printf-style formatting, supporting only the %c
-format specifier for individual bytes/characters. The format string is scanned
-character by character, and %c sequences are replaced with the corresponding
-byte from the args array.
-
-# Parameters
-* `s` - Format string containing text and %c placeholders
-* `args` - Array of up to 256 bytes to substitute into the format string
-
-# Returns
-The number of bytes written to stdout, or an error code if writing fails
-
-# Memory
-Allocates a 256-byte temporary buffer which is automatically freed via defer
-
-**Signature:**
-```luma
-pub const print_byte -> fn(s: *char, args: [char; 256]) int;
-```
-
-**Parameters:**
-* `s` - Format string containing text and %c placeholders
-* `args` - Array of up to 256 bytes to substitute into the format string
-
-**Returns:**
-The number of bytes written to stdout, or an error code if writing fails
 
 ### public `print_err`
 
@@ -267,12 +229,76 @@ this memory.
 
 ### public `write_buffer_to_file`
 
+Writes a buffer to a file
+
+Opens an existing file and writes the entire buffer contents to it.
+
+Writes a buffer to a file
+
+Opens an existing file and writes the entire buffer contents to it.
+
+# Parameters
+* `path` - Path to the file to write to
+* `buffer` - Null-terminated string to write
+
+Writes a buffer to a file
+
+Opens an existing file and writes the entire buffer contents to it.
+
+# Parameters
+* `path` - Path to the file to write to
+* `buffer` - Null-terminated string to write
+
+# Returns
+Number of bytes written, or -1 on error
+
 **Signature:**
 ```luma
 pub const write_buffer_to_file -> fn(path: *char, buffer: *char) int;
 ```
 
+**Parameters:**
+* `path` - Path to the file to write to
+* `buffer` - Null-terminated string to write
+
+**Returns:**
+Number of bytes written, or -1 on error
+
 ## Variables
+
+### private `SYS_READ`
+
+**Type:** int (constant)
+
+Syscall numbers (Linux x86_64)
+
+### private `SYS_WRITE`
+
+**Type:** int (constant)
+
+### private `SYS_OPEN`
+
+**Type:** int (constant)
+
+### private `SYS_CLOSE`
+
+**Type:** int (constant)
+
+### private `O_RDONLY`
+
+**Type:** int (constant)
+
+### private `O_RDWR`
+
+**Type:** int (constant)
+
+### private `STDOUT`
+
+**Type:** int (constant)
+
+### private `STDERR`
+
+**Type:** int (constant)
 
 ### private `INITIAL_BUFFER_SIZE`
 
@@ -285,4 +311,26 @@ Initial buffer size for file reading operations (4KB)
 **Type:** int (constant)
 
 Factor by which buffers grow when they need to expand
+
+### private `ARG_INT`
+
+**Type:** int (constant)
+
+Type tags for format arguments
+
+### private `ARG_STR`
+
+**Type:** int (constant)
+
+### private `ARG_BYTE`
+
+**Type:** int (constant)
+
+### private `ARG_FLOAT`
+
+**Type:** int (constant)
+
+### public `NULL_FORMAT_ARG`
+
+**Type:** FormatArg (constant)
 

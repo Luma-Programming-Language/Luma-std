@@ -7,6 +7,8 @@ including concatenation, comparison, conversion, and character classification.
 All strings are represented as pointers to byte arrays (`*byte`) and must be
 null-terminated.
 
+This module is completely self-contained with no external dependencies.
+
 # Memory Management
 Functions that create new strings (prefixed with `from_` or returning `#returns_ownership`)
 allocate memory that the caller must free. Use `defer { free(str); }` to ensure cleanup.
@@ -24,21 +26,7 @@ allocate memory that the caller must free. Use `defer { free(str); }` to ensure 
 
 ### public `Slice`
 
-Returns the length of a null-terminated string
-
-Counts characters until the null terminator is found.
-
-# Parameters
-* `s` - String to measure
-
-# Returns
-Number of characters before null terminator
-
-# Example
-```luma
-let len: int = string::strlen("Hello");
-// len will be 5
-```
+String slice with pointer and length
 
 **Fields:**
 
@@ -61,6 +49,8 @@ null_terminated_slice -> fn(s: *char) Slice
 
 ### public `String`
 
+String with slice and capacity
+
 **Fields:**
 
 - `slice`: Slice
@@ -82,29 +72,52 @@ as_slice -> fn() Slice
 
 ## Functions
 
-### public `cat`
-
-Forward declarations for functions used within this module
-Forward declarations for functions used within this module
-Forward declarations for functions used within this module
+### public `free_string`
 
 **Signature:**
 ```luma
-pub const cat -> fn(dest: *char, s1: *char, s2: *char) *char;
+#takes_ownership pub const free_string -> fn(s: *String) void;
 ```
 
 ### public `strlen`
+
+Returns the length of a null-terminated string
+
+Counts characters until the null terminator is found.
+
+Returns the length of a null-terminated string
+
+Counts characters until the null terminator is found.
+
+# Parameters
+* `s` - String to measure
+
+Returns the length of a null-terminated string
+
+Counts characters until the null terminator is found.
+
+# Parameters
+* `s` - String to measure
+
+# Returns
+Number of characters before null terminator
+
 
 **Signature:**
 ```luma
 pub const strlen -> fn(s: *char) int;
 ```
 
-### public `free_string`
+**Parameters:**
+* `s` - String to measure
 
-**Signature:**
+**Returns:**
+Number of characters before null terminator
+
+**Example:**
 ```luma
-#takes_ownership pub const free_string -> fn(s: *String) void;
+let len: int = string::strlen("Hello");
+// len will be 5
 ```
 
 ### public `from_byte`
@@ -288,13 +301,6 @@ pub const int_to_str -> fn(num: int, buf: *char, buf_size: int) void;
 let buffer: [byte; 32];
 string::int_to_str(12345, &buffer[0], 32);
 output(&buffer[0]); // Prints "12345"
-```
-
-### public `strlen`
-
-**Signature:**
-```luma
-pub const strlen -> fn(s: *char) int;
 ```
 
 ### public `strcmp`
