@@ -11,7 +11,7 @@
 //! Functions that create new strings (prefixed with `from_` or returning `#returns_ownership`)
 //! allocate memory that the caller must free. Use `defer { free(str); }` to ensure cleanup.
 
-@module "string"
+@module "std/string"
 
 // ============= Local System Call for putbyte =============
 

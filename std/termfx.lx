@@ -21,9 +21,9 @@
 //! output(fx::RESET);
 //! ```
 
-@module "termfx"
+@module "std/termfx"
 
-@use "string" as string
+@use "std/string" as string
 
 /// Reset all terminal formatting to default
 pub const RESET: *byte   = "\x1b[0m";
