@@ -4,7 +4,7 @@
 //! It is completely self-contained with no external module dependencies.
 //! All required syscalls and memory operations are implemented locally.
 
-@module "std/io"
+@module "std_io"
 
 /// Syscall numbers (Linux x86_64)
 const SYS_READ: int = 0;
