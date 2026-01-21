@@ -1,4 +1,4 @@
-# Module: time
+# Module: std_time
 
 Time and sleep utilities
 

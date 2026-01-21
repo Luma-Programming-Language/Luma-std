@@ -1,4 +1,4 @@
-# Module: vector
+# Module: std_vector
 
 Dynamic array (vector) implementation for Luma.
 

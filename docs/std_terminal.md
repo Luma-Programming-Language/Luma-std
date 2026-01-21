@@ -1,4 +1,4 @@
-# Module: terminal
+# Module: std_terminal
 
 Terminal input/output and raw mode control
 

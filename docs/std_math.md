@@ -1,4 +1,4 @@
-# Module: math
+# Module: std_math
 
 Mathematical functions and constants
 

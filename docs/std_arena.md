@@ -1,4 +1,4 @@
-# Module: arena
+# Module: std_arena
 
 Arena/bump allocator for fast temporary allocations
 

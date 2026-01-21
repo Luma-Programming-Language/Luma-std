@@ -1,4 +1,4 @@
-# Module: string
+# Module: std_string
 
 String manipulation and conversion utilities
 
@@ -71,6 +71,13 @@ as_slice -> fn() Slice
 ```
 
 ## Functions
+
+### public `cat`
+
+**Signature:**
+```luma
+pub const cat -> fn(dest: *char, s1: *char, s2: *char) *char;
+```
 
 ### public `free_string`
 
@@ -350,6 +357,13 @@ pub const strcmp -> fn(s1: *char, s2: *char) int;
 if (string::strcmp("hello", "hello") == 0) {
     output("Strings are equal\n");
 }
+```
+
+### public `strncmp`
+
+**Signature:**
+```luma
+pub const strncmp -> fn(s1: *char, s2: *char, n: int) int;
 ```
 
 ### public `s_byte`

@@ -1,4 +1,4 @@
-# Module: io
+# Module: std_io
 
 Input/Output operations module
 

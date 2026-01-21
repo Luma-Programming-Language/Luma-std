@@ -1,4 +1,4 @@
-# Module: termfx
+# Module: std_termfx
 
 Terminal color and formatting escape codes
 

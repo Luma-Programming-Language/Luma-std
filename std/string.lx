@@ -22,6 +22,8 @@ const local_write -> fn (fd: int, buf: *void, count: int) int {
     return __syscall__(SYS_WRITE, fd, cast<int>(buf), count);
 }
 
+pub const cat -> fn (dest: *byte, s1: *byte, s2: *byte) *byte; 
+
 // ============= Core String Types =============
 
 /// String slice with pointer and length
@@ -305,6 +307,15 @@ pub const strcmp -> fn (s1: *byte, s2: *byte) int {
 
   loop[i: int = 0](i < ls1) : (++i) {
     if (s1[i] != s2[i]) { return 1; }
+  }
+
+  return 0;
+}
+
+pub const strncmp -> fn (s1: *byte, s2: *byte, n: int) int {
+  loop [i: int = 0](i < n) : (++i) {
+    if (s1[i] != s2[i]) { return 1; }
+    if (s1[i] == cast<byte>(0) || s2[i] == cast<byte>(0)) { break; }
   }
 
   return 0;
