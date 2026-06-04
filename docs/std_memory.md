@@ -407,7 +407,7 @@ Pointer to new allocation, or NULL on failure
 
 **Signature:**
 ```luma
-#returns_ownership pub const realloc -> fn(ptr: *void, new_size: int) *void;
+#returns_ownership pub const realloc -> fn(ptr: *void, old_size: int, new_size: int) *void;
 ```
 
 **Parameters:**

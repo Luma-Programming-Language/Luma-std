@@ -26,6 +26,23 @@ v.push_back(cast<*void>(&x));
 
 ## Structures
 
+### public `VectorIter`
+
+**Fields:**
+
+- `data`: *void
+- `index`: int
+- `size`: int
+- `element_size`: int
+
+**Methods:**
+
+#### `next()`
+
+```luma
+next -> fn() *void
+```
+
 ### public `Vector`
 
 A dynamic array that can grow as needed.
@@ -158,6 +175,12 @@ let ptr: *int = cast<*int>(v.get(0));
 if (ptr != cast<*int>(0)) {
     outputln("First element: ", *ptr);
 }
+```
+
+#### `iter()`
+
+```luma
+iter -> fn() VectorIter
 ```
 
 ## Functions
