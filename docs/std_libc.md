@@ -6,477 +6,609 @@
 - [Enumerations](#enumerations)
 - [Functions](#functions)
 - [Variables](#variables)
+- [Linked Libraries](#linked-libraries)
 
----
 
 ## Functions
 
-### public `printf`
+### `printf`
 
-**Signature:**
 ```luma
-pub const printf -> fn(fmt: *char, val: *char) int;
+pub printf -> fn(
+    fmt: *char,
+    val: *char
+) int
 ```
 
-### public `puts`
+### `puts`
 
-**Signature:**
 ```luma
-pub const puts -> fn(s: *char) int;
+pub puts -> fn(
+    s: *char
+) int
 ```
 
-### public `putchar`
+### `putchar`
 
-**Signature:**
 ```luma
-pub const putchar -> fn(c: int) int;
+pub putchar -> fn(
+    c: int
+) int
 ```
 
-### public `getchar`
+### `getchar`
 
-**Signature:**
 ```luma
-pub const getchar -> fn() int;
+pub getchar -> fn(
+) int
 ```
 
-### public `fflush`
+### `fflush`
 
-**Signature:**
 ```luma
-pub const fflush -> fn(stream: *void) int;
+pub fflush -> fn(
+    stream: *void
+) int
 ```
 
-### public `fopen`
+### `fopen`
 
-**Signature:**
 ```luma
-pub const fopen -> fn(path: *char, mode: *char) *void;
+pub fopen -> fn(
+    path: *char,
+    mode: *char
+) *void
 ```
 
-### public `fclose`
+### `fclose`
 
-**Signature:**
 ```luma
-pub const fclose -> fn(stream: *void) int;
+pub fclose -> fn(
+    stream: *void
+) int
 ```
 
-### public `fread`
+### `fread`
 
-**Signature:**
 ```luma
-pub const fread -> fn(ptr: *void, size: int, count: int, stream: *void) int;
+pub fread -> fn(
+    ptr: *void,
+    size: int,
+    count: int,
+    stream: *void
+) int
 ```
 
-### public `fwrite`
+### `fwrite`
 
-**Signature:**
 ```luma
-pub const fwrite -> fn(ptr: *void, size: int, count: int, stream: *void) int;
+pub fwrite -> fn(
+    ptr: *void,
+    size: int,
+    count: int,
+    stream: *void
+) int
 ```
 
-### public `fgets`
+### `fgets`
 
-**Signature:**
 ```luma
-pub const fgets -> fn(buf: *char, n: int, stream: *void) *char;
+pub fgets -> fn(
+    buf: *char,
+    n: int,
+    stream: *void
+) *char
 ```
 
-### public `fputs`
+### `fputs`
 
-**Signature:**
 ```luma
-pub const fputs -> fn(s: *char, stream: *void) int;
+pub fputs -> fn(
+    s: *char,
+    stream: *void
+) int
 ```
 
-### public `feof`
+### `feof`
 
-**Signature:**
 ```luma
-pub const feof -> fn(stream: *void) int;
+pub feof -> fn(
+    stream: *void
+) int
 ```
 
-### public `ferror`
+### `ferror`
 
-**Signature:**
 ```luma
-pub const ferror -> fn(stream: *void) int;
+pub ferror -> fn(
+    stream: *void
+) int
 ```
 
-### public `rewind`
+### `rewind`
 
-**Signature:**
 ```luma
-pub const rewind -> fn(stream: *void) void;
+pub rewind -> fn(
+    stream: *void
+) void
 ```
 
-### public `fseek`
+### `fseek`
 
-**Signature:**
 ```luma
-pub const fseek -> fn(stream: *void, offset: int, whence: int) int;
+pub fseek -> fn(
+    stream: *void,
+    offset: int,
+    whence: int
+) int
 ```
 
-### public `ftell`
+### `ftell`
 
-**Signature:**
 ```luma
-pub const ftell -> fn(stream: *void) int;
+pub ftell -> fn(
+    stream: *void
+) int
 ```
 
-### public `remove`
+### `remove`
 
-**Signature:**
 ```luma
-pub const remove -> fn(path: *char) int;
+pub remove -> fn(
+    path: *char
+) int
 ```
 
-### public `rename`
+### `rename`
 
-**Signature:**
 ```luma
-pub const rename -> fn(old: *char, new: *char) int;
+pub rename -> fn(
+    old: *char,
+    new: *char
+) int
 ```
 
-### public `tmpfile`
+### `tmpfile`
 
-**Signature:**
 ```luma
-pub const tmpfile -> fn() *void;
+pub tmpfile -> fn(
+) *void
 ```
 
-### public `malloc`
+### `malloc`
 
-**Signature:**
 ```luma
-pub const malloc -> fn(size: int) *void;
+pub malloc -> fn(
+    size: int
+) *void
 ```
 
-### public `calloc`
+### `calloc`
 
-**Signature:**
 ```luma
-pub const calloc -> fn(count: int, size: int) *void;
+pub calloc -> fn(
+    count: int,
+    size: int
+) *void
 ```
 
-### public `realloc`
+### `realloc`
 
-**Signature:**
 ```luma
-pub const realloc -> fn(ptr: *void, size: int) *void;
+pub realloc -> fn(
+    ptr: *void,
+    size: int
+) *void
 ```
 
-### public `_free`
+### `_free`
 
-**Signature:**
 ```luma
-pub const _free -> fn(ptr: *void) void;
+pub _free -> fn(
+    ptr: *void
+) void
 ```
 
-### public `exit`
+### `exit`
 
-**Signature:**
 ```luma
-pub const exit -> fn(code: int) void;
+pub exit -> fn(
+    code: int
+) void
 ```
 
-### public `abort`
+### `abort`
 
-**Signature:**
 ```luma
-pub const abort -> fn() void;
+pub abort -> fn(
+) void
 ```
 
-### public `abs`
+### `abs`
 
-**Signature:**
 ```luma
-pub const abs -> fn(n: int) int;
+pub abs -> fn(
+    n: int
+) int
 ```
 
-### public `atoi`
+### `atoi`
 
-**Signature:**
 ```luma
-pub const atoi -> fn(s: *char) int;
+pub atoi -> fn(
+    s: *char
+) int
 ```
 
-### public `atof`
+### `atof`
 
-**Signature:**
 ```luma
-pub const atof -> fn(s: *char) double;
+pub atof -> fn(
+    s: *char
+) double
 ```
 
-### public `atol`
+### `atol`
 
-**Signature:**
 ```luma
-pub const atol -> fn(s: *char) int;
+pub atol -> fn(
+    s: *char
+) int
 ```
 
-### public `rand`
+### `rand`
 
-**Signature:**
 ```luma
-pub const rand -> fn() int;
+pub rand -> fn(
+) int
 ```
 
-### public `srand`
+### `srand`
 
-**Signature:**
 ```luma
-pub const srand -> fn(seed: int) void;
+pub srand -> fn(
+    seed: int
+) void
 ```
 
-### public `getenv`
+### `getenv`
 
-**Signature:**
 ```luma
-pub const getenv -> fn(name: *char) *char;
+pub getenv -> fn(
+    name: *char
+) *char
 ```
 
-### public `_system`
+### `_system`
 
-**Signature:**
 ```luma
-pub const _system -> fn(cmd: *char) int;
+pub _system -> fn(
+    cmd: *char
+) int
 ```
 
-### public `qsort`
+### `qsort`
 
-**Signature:**
 ```luma
-pub const qsort -> fn(base: *void, count: int, size: int, cmp: *void) void;
+pub qsort -> fn(
+    base: *void,
+    count: int,
+    size: int,
+    cmp: *void
+) void
 ```
 
-### public `bsearch`
+### `bsearch`
 
-**Signature:**
 ```luma
-pub const bsearch -> fn(key: *void, base: *void, count: int, size: int, cmp: *void) *void;
+pub bsearch -> fn(
+    key: *void,
+    base: *void,
+    count: int,
+    size: int,
+    cmp: *void
+) *void
 ```
 
-### public `time`
+### `time`
 
-**Signature:**
 ```luma
-pub const time -> fn(t: *int) int;
+pub time -> fn(
+    t: *int
+) int
 ```
 
-### public `clock`
+### `clock`
 
-**Signature:**
 ```luma
-pub const clock -> fn() int;
+pub clock -> fn(
+) int
 ```
 
-### public `difftime`
+### `difftime`
 
-**Signature:**
 ```luma
-pub const difftime -> fn(t1: int, t0: int) double;
+pub difftime -> fn(
+    t1: int,
+    t0: int
+) double
 ```
 
-### public `strlen`
+### `strlen`
 
-**Signature:**
 ```luma
-pub const strlen -> fn(s: *char) int;
+pub strlen -> fn(
+    s: *char
+) int
 ```
 
-### public `strcpy`
+### `strcpy`
 
-**Signature:**
 ```luma
-pub const strcpy -> fn(dst: *char, src: *char) *char;
+pub strcpy -> fn(
+    dst: *char,
+    src: *char
+) *char
 ```
 
-### public `strncpy`
+### `strncpy`
 
-**Signature:**
 ```luma
-pub const strncpy -> fn(dst: *char, src: *char, n: int) *char;
+pub strncpy -> fn(
+    dst: *char,
+    src: *char,
+    n: int
+) *char
 ```
 
-### public `strcat`
+### `strcat`
 
-**Signature:**
 ```luma
-pub const strcat -> fn(dst: *char, src: *char) *char;
+pub strcat -> fn(
+    dst: *char,
+    src: *char
+) *char
 ```
 
-### public `strncat`
+### `strncat`
 
-**Signature:**
 ```luma
-pub const strncat -> fn(dst: *char, src: *char, n: int) *char;
+pub strncat -> fn(
+    dst: *char,
+    src: *char,
+    n: int
+) *char
 ```
 
-### public `strcmp`
+### `strcmp`
 
-**Signature:**
 ```luma
-pub const strcmp -> fn(a: *char, b: *char) int;
+pub strcmp -> fn(
+    a: *char,
+    b: *char
+) int
 ```
 
-### public `strncmp`
+### `strncmp`
 
-**Signature:**
 ```luma
-pub const strncmp -> fn(a: *char, b: *char, n: int) int;
+pub strncmp -> fn(
+    a: *char,
+    b: *char,
+    n: int
+) int
 ```
 
-### public `strchr`
+### `strchr`
 
-**Signature:**
 ```luma
-pub const strchr -> fn(s: *char, c: int) *char;
+pub strchr -> fn(
+    s: *char,
+    c: int
+) *char
 ```
 
-### public `strrchr`
+### `strrchr`
 
-**Signature:**
 ```luma
-pub const strrchr -> fn(s: *char, c: int) *char;
+pub strrchr -> fn(
+    s: *char,
+    c: int
+) *char
 ```
 
-### public `strstr`
+### `strstr`
 
-**Signature:**
 ```luma
-pub const strstr -> fn(haystack: *char, needle: *char) *char;
+pub strstr -> fn(
+    haystack: *char,
+    needle: *char
+) *char
 ```
 
-### public `strtok`
+### `strtok`
 
-**Signature:**
 ```luma
-pub const strtok -> fn(s: *char, delim: *char) *char;
+pub strtok -> fn(
+    s: *char,
+    delim: *char
+) *char
 ```
 
-### public `memset`
+### `memset`
 
-**Signature:**
 ```luma
-pub const memset -> fn(ptr: *void, val: int, n: int) *void;
+pub memset -> fn(
+    ptr: *void,
+    val: int,
+    n: int
+) *void
 ```
 
-### public `memcpy`
+### `memcpy`
 
-**Signature:**
 ```luma
-pub const memcpy -> fn(dst: *void, src: *void, n: int) *void;
+pub memcpy -> fn(
+    dst: *void,
+    src: *void,
+    n: int
+) *void
 ```
 
-### public `memmove`
+### `memmove`
 
-**Signature:**
 ```luma
-pub const memmove -> fn(dst: *void, src: *void, n: int) *void;
+pub memmove -> fn(
+    dst: *void,
+    src: *void,
+    n: int
+) *void
 ```
 
-### public `memcmp`
+### `memcmp`
 
-**Signature:**
 ```luma
-pub const memcmp -> fn(a: *void, b: *void, n: int) int;
+pub memcmp -> fn(
+    a: *void,
+    b: *void,
+    n: int
+) int
 ```
 
-### public `sqrt`
+### `sqrt`
 
-**Signature:**
 ```luma
-pub const sqrt -> fn(x: double) double;
+#lib_import("libm.so")
+pub sqrt -> fn(
+    x: double
+) double
 ```
 
-### public `pow`
+### `pow`
 
-**Signature:**
 ```luma
-pub const pow -> fn(base: double, exp: double) double;
+#lib_import("libm.so")
+pub pow -> fn(
+    base: double,
+    exp: double
+) double
 ```
 
-### public `floor`
+### `floor`
 
-**Signature:**
 ```luma
-pub const floor -> fn(x: double) double;
+#lib_import("libm.so")
+pub floor -> fn(
+    x: double
+) double
 ```
 
-### public `ceil`
+### `ceil`
 
-**Signature:**
 ```luma
-pub const ceil -> fn(x: double) double;
+#lib_import("libm.so")
+pub ceil -> fn(
+    x: double
+) double
 ```
 
-### public `fabs`
+### `fabs`
 
-**Signature:**
 ```luma
-pub const fabs -> fn(x: double) double;
+#lib_import("libm.so")
+pub fabs -> fn(
+    x: double
+) double
 ```
 
-### public `fmod`
+### `fmod`
 
-**Signature:**
 ```luma
-pub const fmod -> fn(x: double, y: double) double;
+#lib_import("libm.so")
+pub fmod -> fn(
+    x: double,
+    y: double
+) double
 ```
 
-### public `log`
+### `log`
 
-**Signature:**
 ```luma
-pub const log -> fn(x: double) double;
+#lib_import("libm.so")
+pub log -> fn(
+    x: double
+) double
 ```
 
-### public `log2`
+### `log2`
 
-**Signature:**
 ```luma
-pub const log2 -> fn(x: double) double;
+#lib_import("libm.so")
+pub log2 -> fn(
+    x: double
+) double
 ```
 
-### public `log10`
+### `log10`
 
-**Signature:**
 ```luma
-pub const log10 -> fn(x: double) double;
+#lib_import("libm.so")
+pub log10 -> fn(
+    x: double
+) double
 ```
 
-### public `exp`
+### `exp`
 
-**Signature:**
 ```luma
-pub const exp -> fn(x: double) double;
+#lib_import("libm.so")
+pub exp -> fn(
+    x: double
+) double
 ```
 
-### public `sin`
+### `sin`
 
-**Signature:**
 ```luma
-pub const sin -> fn(x: double) double;
+#lib_import("libm.so")
+pub sin -> fn(
+    x: double
+) double
 ```
 
-### public `cos`
+### `cos`
 
-**Signature:**
 ```luma
-pub const cos -> fn(x: double) double;
+#lib_import("libm.so")
+pub cos -> fn(
+    x: double
+) double
 ```
 
-### public `tan`
+### `tan`
 
-**Signature:**
 ```luma
-pub const tan -> fn(x: double) double;
+#lib_import("libm.so")
+pub tan -> fn(
+    x: double
+) double
 ```
 
-### public `atan2`
+### `atan2`
 
-**Signature:**
 ```luma
-pub const atan2 -> fn(y: double, x: double) double;
+#lib_import("libm.so")
+pub atan2 -> fn(
+    y: double,
+    x: double
+) double
 ```
+
+
+## Linked Libraries
+
+External native libraries linked by this module.
+
+> **FFI library:** `libc.so.6`
+>
 

@@ -10,124 +10,248 @@ PLATFORM: Linux x86_64, macOS x86_64/ARM64, and Windows x86_64
 - [Enumerations](#enumerations)
 - [Functions](#functions)
 - [Variables](#variables)
+- [OS-Specific](#os-specific)
 
 ---
 
 ## Structures
 
-### public `FormatArg`
+### `FormatArg`
 
-**Fields:**
+| Field | Type | Description |
+|-------|------|-------------|
+| `tag` | int |  |
+| `str_ptr` | *char |  |
+| `int_val` | int |  |
+| `byte_val` | char |  |
 
-- `tag`: int
-- `str_ptr`: *char
-- `int_val`: int
-- `byte_val`: char
 
 ## Functions
 
-### public `local_write`
+### `local_write`
 
-**Signature:**
 ```luma
-pub const local_write -> fn(fd: int, buf: *void, count: int) int;
+pub local_write -> fn(
+    fd: int,
+    buf: *void,
+    count: int
+) int
 ```
 
-### public `local_read`
+### `local_read`
 
-**Signature:**
 ```luma
-pub const local_read -> fn(fd: int, buf: *void, count: int) int;
+pub local_read -> fn(
+    fd: int,
+    buf: *void,
+    count: int
+) int
 ```
 
-### public `local_open_read`
+### `local_open_read`
 
-**Signature:**
 ```luma
-pub const local_open_read -> fn(path: *char) int;
+pub local_open_read -> fn(
+    path: *char
+) int
 ```
 
-### public `local_open_create`
+### `local_open_create`
 
-**Signature:**
 ```luma
-pub const local_open_create -> fn(path: *char) int;
+pub local_open_create -> fn(
+    path: *char
+) int
 ```
 
-### public `local_close`
+### `local_close`
 
-**Signature:**
 ```luma
-pub const local_close -> fn(fd: int) int;
+pub local_close -> fn(
+    fd: int
+) int
 ```
 
-### public `local_is_error`
+### `local_is_error`
 
-**Signature:**
 ```luma
-pub const local_is_error -> fn(result: int) bool;
+pub local_is_error -> fn(
+    result: int
+) bool
 ```
 
-### public `write_binary`
+### `write_binary`
 
-**Signature:**
 ```luma
-pub const write_binary -> fn(path: *char, data: *void, size: int) int;
+pub write_binary -> fn(
+    path: *char,
+    data: *void,
+    size: int
+) int
 ```
 
-### public `read_binary`
+### `read_binary`
 
-**Signature:**
 ```luma
-pub const read_binary -> fn(path: *char, data: *void, size: int) int;
+pub read_binary -> fn(
+    path: *char,
+    data: *void,
+    size: int
+) int
 ```
 
-### public `str_arg`
+### `str_arg`
 
-**Signature:**
 ```luma
-pub const str_arg -> fn(arg: *char) FormatArg;
+pub str_arg -> fn(
+    arg: *char
+) FormatArg
 ```
 
-### public `int_arg`
+### `int_arg`
 
-**Signature:**
 ```luma
-pub const int_arg -> fn(arg: int) FormatArg;
+pub int_arg -> fn(
+    arg: int
+) FormatArg
 ```
 
-### public `byte_arg`
+### `byte_arg`
 
-**Signature:**
 ```luma
-pub const byte_arg -> fn(arg: char) FormatArg;
+pub byte_arg -> fn(
+    arg: char
+) FormatArg
 ```
 
-### public `print`
+### `print`
 
-**Signature:**
 ```luma
-pub const print -> fn(s: *char, args: [FormatArg; 256]) int;
+pub print -> fn(
+    s: *char,
+    args: [FormatArg; 256]
+) int
 ```
 
-### public `print_err`
+### `print_err`
 
-**Signature:**
 ```luma
-pub const print_err -> fn(s: *char, args: [int; 256]) int;
+pub print_err -> fn(
+    s: *char,
+    args: [int; 256]
+) int
 ```
 
-### public `read_file`
+### `read_file`
 
-**Signature:**
 ```luma
-#returns_ownership pub const read_file -> fn(path: *char) *char;
+#returns_ownership
+pub read_file -> fn(
+    path: *char
+) *char
 ```
 
-### public `write_buffer_to_file`
+### `write_buffer_to_file`
 
-**Signature:**
 ```luma
-pub const write_buffer_to_file -> fn(path: *char, buffer: *char) int;
+pub write_buffer_to_file -> fn(
+    path: *char,
+    buffer: *char
+) int
 ```
+
+
+## OS-Specific
+
+### `"linux"`
+
+- **`SYS_READ`** : int *(constant)*
+- **`SYS_WRITE`** : int *(constant)*
+- **`SYS_OPEN`** : int *(constant)*
+- **`SYS_CLOSE`** : int *(constant)*
+- **`O_RDONLY`** : int *(constant)*
+- **`O_RDWR`** : int *(constant)*
+- **`STDOUT`** : int *(constant)*
+- **`STDERR`** : int *(constant)*
+
+### `"macos"`
+
+- **`SYS_READ`** : int *(constant)*
+- **`SYS_WRITE`** : int *(constant)*
+- **`SYS_OPEN`** : int *(constant)*
+- **`SYS_CLOSE`** : int *(constant)*
+- **`O_RDONLY`** : int *(constant)*
+- **`O_RDWR`** : int *(constant)*
+- **`STDOUT`** : int *(constant)*
+- **`STDERR`** : int *(constant)*
+
+### `"windows"`
+
+- **`GENERIC_READ`** : int *(constant)*
+- **`GENERIC_WRITE`** : int *(constant)*
+- **`FILE_SHARE_READ`** : int *(constant)*
+- **`OPEN_EXISTING`** : int *(constant)*
+- **`INVALID_HANDLE_VALUE`** : int *(constant)*
+- **`STD_OUTPUT_HANDLE`** : int *(constant)*
+- **`STD_ERROR_HANDLE`** : int *(constant)*
+- **`STD_INPUT_HANDLE`** : int *(constant)*
+### `WriteFile`
+
+```luma
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub WriteFile -> fn(
+    hFile: int,
+    lpBuffer: *void,
+    nNumberOfBytesToWrite: int,
+    lpNumberOfBytesWritten: *int,
+    lpOverlapped: *void
+) int
+```
+
+### `ReadFile`
+
+```luma
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub ReadFile -> fn(
+    hFile: int,
+    lpBuffer: *void,
+    nNumberOfBytesToRead: int,
+    lpNumberOfBytesRead: *int,
+    lpOverlapped: *void
+) int
+```
+
+### `CreateFileA`
+
+```luma
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub CreateFileA -> fn(
+    lpFileName: *char,
+    dwDesiredAccess: int,
+    dwShareMode: int,
+    lpSecurityAttributes: *void,
+    dwCreationDisposition: int,
+    dwFlagsAndAttributes: int,
+    hTemplateFile: int
+) int
+```
+
+### `CloseHandle`
+
+```luma
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub CloseHandle -> fn(
+    hObject: int
+) int
+```
+
+### `GetStdHandle`
+
+```luma
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetStdHandle -> fn(
+    nStdHandle: int
+) int
+```
+
 

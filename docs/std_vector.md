@@ -26,24 +26,25 @@ v.push_back(cast<*void>(&x));
 
 ## Structures
 
-### public `VectorIter`
+### `VectorIter`
 
-**Fields:**
-
-- `data`: *void
-- `index`: int
-- `size`: int
-- `element_size`: int
+| Field | Type | Description |
+|-------|------|-------------|
+| `data` | *void |  |
+| `index` | int |  |
+| `size` | int |  |
+| `element_size` | int |  |
 
 **Methods:**
 
 #### `next()`
 
 ```luma
-next -> fn() *void
+next -> fn(
+) *void
 ```
 
-### public `Vector`
+### `Vector`
 
 A dynamic array that can grow as needed.
 
@@ -52,12 +53,12 @@ All elements must be of the same type (specified by element_size).
 The vector automatically reallocates when capacity is exceeded.
 
 
-**Fields:**
-
-- `data`: *void
-- `capacity`: int — Pointer to contiguous data buffer
-- `size`: int — Maximum elements before resize
-- `element_size`: int — Current number of elements
+| Field | Type | Description |
+|-------|------|-------------|
+| `data` | *void |  |
+| `capacity` | int | Pointer to contiguous data buffer |
+| `size` | int | Maximum elements before resize |
+| `element_size` | int | Current number of elements |
 
 **Methods:**
 
@@ -75,7 +76,10 @@ Automatically grows the vector if capacity is exceeded.
 
 
 ```luma
-insert -> fn(elem: *void, index: int) int
+insert -> fn(
+    elem: *void,
+    index: int
+) int
 ```
 
 **Example:**
@@ -96,7 +100,9 @@ Automatically grows the vector if capacity is exceeded.
 
 
 ```luma
-push_back -> fn(elem: *void) void
+push_back -> fn(
+    elem: *void
+) void
 ```
 
 **Example:**
@@ -117,7 +123,9 @@ Removes and retrieves the last element from the vector.
 
 
 ```luma
-pop_back -> fn(out: *void) int
+pop_back -> fn(
+    out: *void
+) int
 ```
 
 **Example:**
@@ -142,7 +150,9 @@ Does not reduce capacity.
 
 
 ```luma
-remove_at -> fn(index: int) int
+remove_at -> fn(
+    index: int
+) int
 ```
 
 **Example:**
@@ -164,7 +174,9 @@ Does not remove the element from the vector.
 
 
 ```luma
-get -> fn(index: int) *void
+get -> fn(
+    index: int
+) *void
 ```
 
 **Example:**
@@ -180,12 +192,14 @@ if (ptr != cast<*int>(0)) {
 #### `iter()`
 
 ```luma
-iter -> fn() VectorIter
+iter -> fn(
+) VectorIter
 ```
+
 
 ## Functions
 
-### public `create_vector_capacity`
+### `create_vector_capacity`
 
 Creates a vector with a specific initial capacity.
 
@@ -197,42 +211,13 @@ to avoid multiple reallocations.
 @param element_size Size in bytes of each element (use sizeof<T>)
 @return Newly created vector (caller must call free_vector when done)
 
-# Example
+
 ```luma
-let v: Vector = create_vector_capacity(100, sizeof<double>);
-defer free_vector(&v);
-// Vector can hold 100 doubles before first reallocation
-```
-Creates a vector with a specific initial capacity.
-
-Allocates memory for init_capacity elements upfront.
-Use this when you know approximately how many elements you'll need
-to avoid multiple reallocations.
-
-@param init_capacity Initial number of elements to allocate space for
-@param element_size Size in bytes of each element (use sizeof<T>)
-@return Newly created vector (caller must call free_vector when done)
-
-# Example
-```luma
-let v: Vector = create_vector_capacity(100, sizeof<double>);
-defer free_vector(&v);
-// Vector can hold 100 doubles before first reallocation
-```
-Creates a vector with a specific initial capacity.
-
-Allocates memory for init_capacity elements upfront.
-Use this when you know approximately how many elements you'll need
-to avoid multiple reallocations.
-
-@param init_capacity Initial number of elements to allocate space for
-@param element_size Size in bytes of each element (use sizeof<T>)
-@return Newly created vector (caller must call free_vector when done)
-
-
-**Signature:**
-```luma
-#returns_ownership pub const create_vector_capacity -> fn(init_capacity: int, element_size: int) Vector;
+#returns_ownership
+pub create_vector_capacity -> fn(
+    init_capacity: int,
+    element_size: int
+) Vector
 ```
 
 **Example:**
@@ -242,7 +227,7 @@ defer free_vector(&v);
 // Vector can hold 100 doubles before first reallocation
 ```
 
-### public `create_vector`
+### `create_vector`
 
 Creates a vector with default initial capacity.
 
@@ -252,44 +237,12 @@ This is the most common way to create a vector.
 @param element_size Size in bytes of each element (use sizeof<T>)
 @return Newly created vector (caller must call free_vector when done)
 
-# Example
+
 ```luma
-let v: Vector = create_vector(sizeof<int>);
-defer free_vector(&v);
-
-loop [i: int = 0](i < 10) : (++i) {
-    v.push_back(cast<*void>(&i));
-}
-```
-Creates a vector with default initial capacity.
-
-Uses DEFAULT_VECTOR_CAPACITY (1024) as the initial capacity.
-This is the most common way to create a vector.
-
-@param element_size Size in bytes of each element (use sizeof<T>)
-@return Newly created vector (caller must call free_vector when done)
-
-# Example
-```luma
-let v: Vector = create_vector(sizeof<int>);
-defer free_vector(&v);
-
-loop [i: int = 0](i < 10) : (++i) {
-    v.push_back(cast<*void>(&i));
-}
-```
-Creates a vector with default initial capacity.
-
-Uses DEFAULT_VECTOR_CAPACITY (1024) as the initial capacity.
-This is the most common way to create a vector.
-
-@param element_size Size in bytes of each element (use sizeof<T>)
-@return Newly created vector (caller must call free_vector when done)
-
-
-**Signature:**
-```luma
-#returns_ownership pub const create_vector -> fn(element_size: int) Vector;
+#returns_ownership
+pub create_vector -> fn(
+    element_size: int
+) Vector
 ```
 
 **Example:**
@@ -302,7 +255,7 @@ loop [i: int = 0](i < 10) : (++i) {
 }
 ```
 
-### public `free_vector`
+### `free_vector`
 
 Frees all memory associated with a vector.
 
@@ -311,38 +264,12 @@ This function takes ownership of the vector.
 
 @param v Pointer to the vector to free
 
-# Example
+
 ```luma
-let v: Vector = create_vector(sizeof<int>);
-// ... use vector ...
-free_vector(&v);
-// v is now invalid
-```
-Frees all memory associated with a vector.
-
-After calling this function, the vector should not be used.
-This function takes ownership of the vector.
-
-@param v Pointer to the vector to free
-
-# Example
-```luma
-let v: Vector = create_vector(sizeof<int>);
-// ... use vector ...
-free_vector(&v);
-// v is now invalid
-```
-Frees all memory associated with a vector.
-
-After calling this function, the vector should not be used.
-This function takes ownership of the vector.
-
-@param v Pointer to the vector to free
-
-
-**Signature:**
-```luma
-#takes_ownership pub const free_vector -> fn(v: *Vector) void;
+#takes_ownership
+pub free_vector -> fn(
+    v: *Vector
+) void
 ```
 
 **Example:**
@@ -352,18 +279,9 @@ let v: Vector = create_vector(sizeof<int>);
 free_vector(&v);
 // v is now invalid
 ```
+
 
 ## Variables
 
-### private `DEFAULT_VECTOR_CAPACITY`
-
-**Type:** int (constant)
-
-Default initial capacity for vectors (1024 elements)
-
-### private `NULL`
-
-**Type:** *void (constant)
-
-Null pointer constant
-
+- **`DEFAULT_VECTOR_CAPACITY`** : int *(constant)* — Default initial capacity for vectors (1024 elements)
+- **`NULL`** : *void *(constant)* — Null pointer constant

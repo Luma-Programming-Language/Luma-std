@@ -7,14 +7,13 @@
 - [Functions](#functions)
 - [Variables](#variables)
 
----
 
 ## Functions
 
-### public `main`
+### `main`
 
-**Signature:**
 ```luma
-pub const main -> fn() int;
+pub main -> fn(
+) int
 ```
 

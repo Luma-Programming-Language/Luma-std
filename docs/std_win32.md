@@ -15,323 +15,418 @@ between std_sys (POSIX) and std_win32 (Windows) in cross-platform code.
 - [Functions](#functions)
 - [Variables](#variables)
 
----
 
 ## Functions
 
-### public `CreateFileA`
+### `CreateFileA`
 
-**Signature:**
 ```luma
-pub const CreateFileA -> fn(lpFileName: *char, dwDesiredAccess: int, dwShareMode: int, lpSecurityAttributes: *void, dwCreationDisposition: int, dwFlagsAndAttributes: int, hTemplateFile: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub CreateFileA -> fn(
+    lpFileName: *char,
+    dwDesiredAccess: int,
+    dwShareMode: int,
+    lpSecurityAttributes: *void,
+    dwCreationDisposition: int,
+    dwFlagsAndAttributes: int,
+    hTemplateFile: int
+) int
 ```
 
-### public `ReadFile`
+### `ReadFile`
 
-**Signature:**
 ```luma
-pub const ReadFile -> fn(hFile: int, lpBuffer: *void, nNumberOfBytesToRead: int, lpNumberOfBytesRead: *int, lpOverlapped: *void) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub ReadFile -> fn(
+    hFile: int,
+    lpBuffer: *void,
+    nNumberOfBytesToRead: int,
+    lpNumberOfBytesRead: *int,
+    lpOverlapped: *void
+) int
 ```
 
-### public `WriteFile`
+### `WriteFile`
 
-**Signature:**
 ```luma
-pub const WriteFile -> fn(hFile: int, lpBuffer: *void, nNumberOfBytesToWrite: int, lpNumberOfBytesWritten: *int, lpOverlapped: *void) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub WriteFile -> fn(
+    hFile: int,
+    lpBuffer: *void,
+    nNumberOfBytesToWrite: int,
+    lpNumberOfBytesWritten: *int,
+    lpOverlapped: *void
+) int
 ```
 
-### public `CloseHandle`
+### `CloseHandle`
 
-**Signature:**
 ```luma
-pub const CloseHandle -> fn(hObject: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub CloseHandle -> fn(
+    hObject: int
+) int
 ```
 
-### public `GetFileSizeEx`
+### `GetFileSizeEx`
 
-**Signature:**
 ```luma
-pub const GetFileSizeEx -> fn(hFile: int, lpFileSize: *int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetFileSizeEx -> fn(
+    hFile: int,
+    lpFileSize: *int
+) int
 ```
 
-### public `SetFilePointerEx`
+### `SetFilePointerEx`
 
-**Signature:**
 ```luma
-pub const SetFilePointerEx -> fn(hFile: int, liDistanceToMove: int, lpNewFilePointer: *int, dwMoveMethod: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub SetFilePointerEx -> fn(
+    hFile: int,
+    liDistanceToMove: int,
+    lpNewFilePointer: *int,
+    dwMoveMethod: int
+) int
 ```
 
-### public `DeleteFileA`
+### `DeleteFileA`
 
-**Signature:**
 ```luma
-pub const DeleteFileA -> fn(lpFileName: *char) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub DeleteFileA -> fn(
+    lpFileName: *char
+) int
 ```
 
-### public `MoveFileA`
+### `MoveFileA`
 
-**Signature:**
 ```luma
-pub const MoveFileA -> fn(lpExistingFileName: *char, lpNewFileName: *char) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub MoveFileA -> fn(
+    lpExistingFileName: *char,
+    lpNewFileName: *char
+) int
 ```
 
-### public `CopyFileA`
+### `CopyFileA`
 
-**Signature:**
 ```luma
-pub const CopyFileA -> fn(lpExistingFileName: *char, lpNewFileName: *char, bFailIfExists: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub CopyFileA -> fn(
+    lpExistingFileName: *char,
+    lpNewFileName: *char,
+    bFailIfExists: int
+) int
 ```
 
-### public `CreateDirectoryA`
+### `CreateDirectoryA`
 
-**Signature:**
 ```luma
-pub const CreateDirectoryA -> fn(lpPathName: *char, lpSecurityAttributes: *void) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub CreateDirectoryA -> fn(
+    lpPathName: *char,
+    lpSecurityAttributes: *void
+) int
 ```
 
-### public `RemoveDirectoryA`
+### `RemoveDirectoryA`
 
-**Signature:**
 ```luma
-pub const RemoveDirectoryA -> fn(lpPathName: *char) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub RemoveDirectoryA -> fn(
+    lpPathName: *char
+) int
 ```
 
-### public `GetCurrentDirectoryA`
+### `GetCurrentDirectoryA`
 
-**Signature:**
 ```luma
-pub const GetCurrentDirectoryA -> fn(nBufferLength: int, lpBuffer: *char) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetCurrentDirectoryA -> fn(
+    nBufferLength: int,
+    lpBuffer: *char
+) int
 ```
 
-### public `SetCurrentDirectoryA`
+### `SetCurrentDirectoryA`
 
-**Signature:**
 ```luma
-pub const SetCurrentDirectoryA -> fn(lpPathName: *char) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub SetCurrentDirectoryA -> fn(
+    lpPathName: *char
+) int
 ```
 
-### public `GetStdHandle`
+### `GetStdHandle`
 
-**Signature:**
 ```luma
-pub const GetStdHandle -> fn(nStdHandle: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetStdHandle -> fn(
+    nStdHandle: int
+) int
 ```
 
-### public `SetConsoleOutputCP`
+### `SetConsoleOutputCP`
 
-**Signature:**
 ```luma
-pub const SetConsoleOutputCP -> fn(wCodePageID: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub SetConsoleOutputCP -> fn(
+    wCodePageID: int
+) int
 ```
 
-### public `ExitProcess`
+### `ExitProcess`
 
-**Signature:**
 ```luma
-pub const ExitProcess -> fn(uExitCode: int) void;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub ExitProcess -> fn(
+    uExitCode: int
+) void
 ```
 
-### public `GetCurrentProcessId`
+### `GetCurrentProcessId`
 
-**Signature:**
 ```luma
-pub const GetCurrentProcessId -> fn() int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetCurrentProcessId -> fn(
+) int
 ```
 
-### public `OpenProcess`
+### `OpenProcess`
 
-**Signature:**
 ```luma
-pub const OpenProcess -> fn(dwDesiredAccess: int, bInheritHandle: int, dwProcessId: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub OpenProcess -> fn(
+    dwDesiredAccess: int,
+    bInheritHandle: int,
+    dwProcessId: int
+) int
 ```
 
-### public `TerminateProcess`
+### `TerminateProcess`
 
-**Signature:**
 ```luma
-pub const TerminateProcess -> fn(hProcess: int, uExitCode: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub TerminateProcess -> fn(
+    hProcess: int,
+    uExitCode: int
+) int
 ```
 
-### public `GetExitCodeProcess`
+### `GetExitCodeProcess`
 
-**Signature:**
 ```luma
-pub const GetExitCodeProcess -> fn(hProcess: int, lpExitCode: *int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetExitCodeProcess -> fn(
+    hProcess: int,
+    lpExitCode: *int
+) int
 ```
 
-### public `CreateProcessA`
+### `CreateProcessA`
 
-**Signature:**
 ```luma
-pub const CreateProcessA -> fn(lpApplicationName: *char, lpCommandLine: *char, lpProcessAttributes: *void, lpThreadAttributes: *void, bInheritHandles: int, dwCreationFlags: int, lpEnvironment: *void, lpCurrentDirectory: *char, lpStartupInfo: *void, lpProcessInformation: *void) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub CreateProcessA -> fn(
+    lpApplicationName: *char,
+    lpCommandLine: *char,
+    lpProcessAttributes: *void,
+    lpThreadAttributes: *void,
+    bInheritHandles: int,
+    dwCreationFlags: int,
+    lpEnvironment: *void,
+    lpCurrentDirectory: *char,
+    lpStartupInfo: *void,
+    lpProcessInformation: *void
+) int
 ```
 
-### public `WaitForSingleObject`
+### `WaitForSingleObject`
 
-**Signature:**
 ```luma
-pub const WaitForSingleObject -> fn(hHandle: int, dwMilliseconds: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub WaitForSingleObject -> fn(
+    hHandle: int,
+    dwMilliseconds: int
+) int
 ```
 
-### public `VirtualAlloc`
+### `VirtualAlloc`
 
-**Signature:**
 ```luma
-pub const VirtualAlloc -> fn(lpAddress: *void, dwSize: int, flAllocationType: int, flProtect: int) *void;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub VirtualAlloc -> fn(
+    lpAddress: *void,
+    dwSize: int,
+    flAllocationType: int,
+    flProtect: int
+) *void
 ```
 
-### public `VirtualFree`
+### `VirtualFree`
 
-**Signature:**
 ```luma
-pub const VirtualFree -> fn(lpAddress: *void, dwSize: int, dwFreeType: int) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub VirtualFree -> fn(
+    lpAddress: *void,
+    dwSize: int,
+    dwFreeType: int
+) int
 ```
 
-### public `GetProcessHeap`
+### `GetProcessHeap`
 
-**Signature:**
 ```luma
-pub const GetProcessHeap -> fn() int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetProcessHeap -> fn(
+) int
 ```
 
-### public `HeapAlloc`
+### `HeapAlloc`
 
-**Signature:**
 ```luma
-pub const HeapAlloc -> fn(hHeap: int, dwFlags: int, dwBytes: int) *void;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub HeapAlloc -> fn(
+    hHeap: int,
+    dwFlags: int,
+    dwBytes: int
+) *void
 ```
 
-### public `HeapFree`
+### `HeapFree`
 
-**Signature:**
 ```luma
-pub const HeapFree -> fn(hHeap: int, dwFlags: int, lpMem: *void) int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub HeapFree -> fn(
+    hHeap: int,
+    dwFlags: int,
+    lpMem: *void
+) int
 ```
 
-### public `GetLastError`
+### `GetLastError`
 
-**Signature:**
 ```luma
-pub const GetLastError -> fn() int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetLastError -> fn(
+) int
 ```
 
-### public `SetLastError`
+### `SetLastError`
 
-**Signature:**
 ```luma
-pub const SetLastError -> fn(dwErrCode: int) void;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub SetLastError -> fn(
+    dwErrCode: int
+) void
 ```
 
-### public `GetTickCount64`
+### `GetTickCount64`
 
-**Signature:**
 ```luma
-pub const GetTickCount64 -> fn() int;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub GetTickCount64 -> fn(
+) int
 ```
 
-### public `Sleep`
+### `Sleep`
 
-**Signature:**
 ```luma
-pub const Sleep -> fn(dwMilliseconds: int) void;
+#dll_import("kernel32.dll", callconv: "stdcall")
+pub Sleep -> fn(
+    dwMilliseconds: int
+) void
 ```
 
-### public `is_invalid_handle`
+### `is_invalid_handle`
 
 Returns true if a handle is invalid.
-Returns true if a handle is invalid.
-Returns true if a handle is invalid.
 
-**Signature:**
 ```luma
-pub const is_invalid_handle -> fn(handle: int) bool;
+pub is_invalid_handle -> fn(
+    handle: int
+) bool
 ```
 
-### public `win32_failed`
+### `win32_failed`
 
 Returns true if a Win32 boolean return value indicates failure (0 = failed).
-Returns true if a Win32 boolean return value indicates failure (0 = failed).
-Returns true if a Win32 boolean return value indicates failure (0 = failed).
 
-**Signature:**
 ```luma
-pub const win32_failed -> fn(result: int) bool;
+pub win32_failed -> fn(
+    result: int
+) bool
 ```
 
-### public `write_str`
+### `write_str`
 
 Write a null-terminated string to a handle. Returns bytes written.
-Write a null-terminated string to a handle. Returns bytes written.
-Write a null-terminated string to a handle. Returns bytes written.
 
-**Signature:**
 ```luma
-pub const write_str -> fn(handle: int, s: *char) int;
+pub write_str -> fn(
+    handle: int,
+    s: *char
+) int
 ```
 
-### public `eprint`
+### `eprint`
 
 Write a null-terminated string to stderr.
-Write a null-terminated string to stderr.
-Write a null-terminated string to stderr.
 
-**Signature:**
 ```luma
-pub const eprint -> fn(s: *char) int;
+pub eprint -> fn(
+    s: *char
+) int
 ```
 
-### public `print_str`
+### `print_str`
 
 Write a null-terminated string to stdout.
-Write a null-terminated string to stdout.
-Write a null-terminated string to stdout.
 
-**Signature:**
 ```luma
-pub const print_str -> fn(s: *char) int;
+pub print_str -> fn(
+    s: *char
+) int
 ```
 
-### public `open_read`
+### `open_read`
 
 Open a file for reading. Returns a handle or INVALID_HANDLE_VALUE.
-Open a file for reading. Returns a handle or INVALID_HANDLE_VALUE.
-Open a file for reading. Returns a handle or INVALID_HANDLE_VALUE.
 
-**Signature:**
 ```luma
-pub const open_read -> fn(path: *char) int;
+pub open_read -> fn(
+    path: *char
+) int
 ```
 
-### public `open_write`
+### `open_write`
 
 Open a file for writing (creates or truncates). Returns a handle or INVALID_HANDLE_VALUE.
-Open a file for writing (creates or truncates). Returns a handle or INVALID_HANDLE_VALUE.
-Open a file for writing (creates or truncates). Returns a handle or INVALID_HANDLE_VALUE.
 
-**Signature:**
 ```luma
-pub const open_write -> fn(path: *char) int;
+pub open_write -> fn(
+    path: *char
+) int
 ```
 
-### public `open_rdwr`
+### `open_rdwr`
 
 Open a file for reading and writing. Returns a handle or INVALID_HANDLE_VALUE.
-Open a file for reading and writing. Returns a handle or INVALID_HANDLE_VALUE.
-Open a file for reading and writing. Returns a handle or INVALID_HANDLE_VALUE.
 
-**Signature:**
 ```luma
-pub const open_rdwr -> fn(path: *char) int;
+pub open_rdwr -> fn(
+    path: *char
+) int
 ```
 
-### public `file_size`
+### `file_size`
 
 Get the size of an open file. Returns -1 on error.
-Get the size of an open file. Returns -1 on error.
-Get the size of an open file. Returns -1 on error.
 
-**Signature:**
 ```luma
-pub const file_size -> fn(handle: int) int;
+pub file_size -> fn(
+    handle: int
+) int
 ```
 

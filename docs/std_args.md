@@ -33,7 +33,7 @@ const main -> fn (argc: int, argv: **byte) int {
 
 ## Structures
 
-### public `ArgsIter`
+### `ArgsIter`
 
 Iterator for traversing command-line arguments.
 
@@ -41,10 +41,10 @@ Provides methods to peek at, consume, and skip arguments sequentially.
 Maintains an internal position that advances with each next() call.
 
 
-**Fields:**
-
-- `data`: **char
-- `remaining`: int — Current position in argument array
+| Field | Type | Description |
+|-------|------|-------------|
+| `data` | **char |  |
+| `remaining` | int | Current position in argument array |
 
 **Methods:**
 
@@ -60,7 +60,8 @@ associated values.
 
 
 ```luma
-peek -> fn() *char
+peek -> fn(
+) *char
 ```
 
 **Example:**
@@ -82,7 +83,8 @@ Consumes the argument and moves the iterator forward.
 
 
 ```luma
-next -> fn() *char
+next -> fn(
+) *char
 ```
 
 **Example:**
@@ -106,7 +108,9 @@ whichever comes first.
 
 
 ```luma
-skip -> fn(n: int) void
+skip -> fn(
+    n: int
+) void
 ```
 
 **Example:**
@@ -115,7 +119,7 @@ iter.skip(1);  // Skip program name
 // Now iter points to first user argument
 ```
 
-### public `Args`
+### `Args`
 
 Command-line arguments container.
 
@@ -124,10 +128,10 @@ accessing and querying arguments. Index 0 is the program name,
 subsequent indices are user-provided arguments.
 
 
-**Fields:**
-
-- `data`: **char
-- `count`: int — Array of argument strings
+| Field | Type | Description |
+|-------|------|-------------|
+| `data` | **char |  |
+| `count` | int | Array of argument strings |
 
 **Methods:**
 
@@ -140,7 +144,8 @@ Returns the total number of arguments.
 
 
 ```luma
-len -> fn() int
+len -> fn(
+) int
 ```
 
 **Example:**
@@ -159,7 +164,8 @@ Checks if there are no arguments.
 
 
 ```luma
-is_empty -> fn() int
+is_empty -> fn(
+) int
 ```
 
 **Example:**
@@ -181,7 +187,9 @@ modify the Args struct.
 
 
 ```luma
-get -> fn(index: int) *char
+get -> fn(
+    index: int
+) *char
 ```
 
 **Example:**
@@ -203,7 +211,9 @@ Performs exact string matching against all arguments.
 
 
 ```luma
-contains -> fn(val: *char) int
+contains -> fn(
+    val: *char
+) int
 ```
 
 **Example:**
@@ -229,7 +239,8 @@ only user-provided arguments.
 
 
 ```luma
-tail -> fn() Args
+tail -> fn(
+) Args
 ```
 
 **Example:**
@@ -250,7 +261,8 @@ Returns an iterator positioned at the first argument.
 
 
 ```luma
-iter -> fn() ArgsIter
+iter -> fn(
+) ArgsIter
 ```
 
 **Example:**
@@ -264,9 +276,10 @@ loop {
 }
 ```
 
+
 ## Functions
 
-### public `init_args`
+### `init_args`
 
 Initializes Args struct from main() parameters.
 
@@ -277,54 +290,12 @@ This should be the first call in main() when argument processing is needed.
 @param argv Argument vector from main()
 @return Initialized Args struct
 
-# Example
+
 ```luma
-const main -> fn (argc: int, argv: **byte) int {
-    let args: Args = args::init_args(argc, argv);
-    
-    if (args.contains("--version")) {
-        output("Version 1.0.0\n");
-        return 0;
-    }
-    
-    return 0;
-}
-```
-Initializes Args struct from main() parameters.
-
-Wraps the standard main() argc/argv parameters into an Args struct.
-This should be the first call in main() when argument processing is needed.
-
-@param argc Argument count from main()
-@param argv Argument vector from main()
-@return Initialized Args struct
-
-# Example
-```luma
-const main -> fn (argc: int, argv: **byte) int {
-    let args: Args = args::init_args(argc, argv);
-    
-    if (args.contains("--version")) {
-        output("Version 1.0.0\n");
-        return 0;
-    }
-    
-    return 0;
-}
-```
-Initializes Args struct from main() parameters.
-
-Wraps the standard main() argc/argv parameters into an Args struct.
-This should be the first call in main() when argument processing is needed.
-
-@param argc Argument count from main()
-@param argv Argument vector from main()
-@return Initialized Args struct
-
-
-**Signature:**
-```luma
-pub const init_args -> fn(argc: int, argv: **char) Args;
+pub init_args -> fn(
+    argc: int,
+    argv: **char
+) Args
 ```
 
 **Example:**

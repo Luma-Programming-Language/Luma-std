@@ -26,14 +26,14 @@ let dot: double = a.dot(b);     // 11.0
 
 ## Structures
 
-### public `Vec2`
+### `Vec2`
 
 A 2D vector with x and y components
 
-**Fields:**
-
-- `x`: double — X component
-- `y`: double — Y component
+| Field | Type | Description |
+|-------|------|-------------|
+| `x` | double | X component |
+| `y` | double | Y component |
 
 **Methods:**
 
@@ -42,7 +42,8 @@ A 2D vector with x and y components
 Zero vector (0, 0)
 
 ```luma
-zero -> fn() Vec2
+zero -> fn(
+) Vec2
 ```
 
 #### `one()`
@@ -50,7 +51,8 @@ zero -> fn() Vec2
 Unit vector (1, 1)
 
 ```luma
-one -> fn() Vec2
+one -> fn(
+) Vec2
 ```
 
 #### `right()`
@@ -58,7 +60,8 @@ one -> fn() Vec2
 Right unit vector (1, 0)
 
 ```luma
-right -> fn() Vec2
+right -> fn(
+) Vec2
 ```
 
 #### `down()`
@@ -66,7 +69,8 @@ right -> fn() Vec2
 Down unit vector (0, 1)
 
 ```luma
-down -> fn() Vec2
+down -> fn(
+) Vec2
 ```
 
 #### `add()`
@@ -74,7 +78,9 @@ down -> fn() Vec2
 Add another vector component-wise
 
 ```luma
-add -> fn(other: Vec2) Vec2
+add -> fn(
+    other: Vec2
+) Vec2
 ```
 
 #### `sub()`
@@ -82,7 +88,9 @@ add -> fn(other: Vec2) Vec2
 Subtract another vector component-wise
 
 ```luma
-sub -> fn(other: Vec2) Vec2
+sub -> fn(
+    other: Vec2
+) Vec2
 ```
 
 #### `scale()`
@@ -90,7 +98,9 @@ sub -> fn(other: Vec2) Vec2
 Scale the vector by a scalar
 
 ```luma
-scale -> fn(s: double) Vec2
+scale -> fn(
+    s: double
+) Vec2
 ```
 
 #### `div()`
@@ -98,7 +108,9 @@ scale -> fn(s: double) Vec2
 Divide the vector by a scalar
 
 ```luma
-div -> fn(s: double) Vec2
+div -> fn(
+    s: double
+) Vec2
 ```
 
 #### `negate()`
@@ -106,7 +118,8 @@ div -> fn(s: double) Vec2
 Negate the vector component-wise
 
 ```luma
-negate -> fn() Vec2
+negate -> fn(
+) Vec2
 ```
 
 #### `dot()`
@@ -114,7 +127,9 @@ negate -> fn() Vec2
 Dot product with another vector
 
 ```luma
-dot -> fn(other: Vec2) double
+dot -> fn(
+    other: Vec2
+) double
 ```
 
 #### `cross()`
@@ -122,7 +137,9 @@ dot -> fn(other: Vec2) double
 2D cross product (scalar result)
 
 ```luma
-cross -> fn(other: Vec2) double
+cross -> fn(
+    other: Vec2
+) double
 ```
 
 #### `length_sq()`
@@ -130,7 +147,8 @@ cross -> fn(other: Vec2) double
 Squared length (avoids sqrt)
 
 ```luma
-length_sq -> fn() double
+length_sq -> fn(
+) double
 ```
 
 #### `length()`
@@ -138,7 +156,8 @@ length_sq -> fn() double
 Euclidean length
 
 ```luma
-length -> fn() double
+length -> fn(
+) double
 ```
 
 #### `normalize()`
@@ -146,7 +165,8 @@ length -> fn() double
 Return a unit-length vector (safe for zero vectors)
 
 ```luma
-normalize -> fn() Vec2
+normalize -> fn(
+) Vec2
 ```
 
 #### `distance_sq()`
@@ -154,7 +174,9 @@ normalize -> fn() Vec2
 Squared distance to another vector (avoids sqrt)
 
 ```luma
-distance_sq -> fn(other: Vec2) double
+distance_sq -> fn(
+    other: Vec2
+) double
 ```
 
 #### `distance()`
@@ -162,7 +184,9 @@ distance_sq -> fn(other: Vec2) double
 Euclidean distance to another vector
 
 ```luma
-distance -> fn(other: Vec2) double
+distance -> fn(
+    other: Vec2
+) double
 ```
 
 #### `lerp()`
@@ -170,7 +194,10 @@ distance -> fn(other: Vec2) double
 Linearly interpolate toward another vector
 
 ```luma
-lerp -> fn(other: Vec2, t: double) Vec2
+lerp -> fn(
+    other: Vec2,
+    t: double
+) Vec2
 ```
 
 #### `angle()`
@@ -178,7 +205,8 @@ lerp -> fn(other: Vec2, t: double) Vec2
 Angle of the vector in radians (atan2)
 
 ```luma
-angle -> fn() double
+angle -> fn(
+) double
 ```
 
 #### `perpendicular()`
@@ -186,7 +214,8 @@ angle -> fn() double
 Perpendicular vector rotated 90° counter-clockwise
 
 ```luma
-perpendicular -> fn() Vec2
+perpendicular -> fn(
+) Vec2
 ```
 
 #### `reflect()`
@@ -194,7 +223,9 @@ perpendicular -> fn() Vec2
 Reflect the vector off a surface with the given normal
 
 ```luma
-reflect -> fn(normal: Vec2) Vec2
+reflect -> fn(
+    normal: Vec2
+) Vec2
 ```
 
 #### `clamp_length()`
@@ -202,7 +233,9 @@ reflect -> fn(normal: Vec2) Vec2
 Clamp the vector length to a maximum value
 
 ```luma
-clamp_length -> fn(max: double) Vec2
+clamp_length -> fn(
+    max: double
+) Vec2
 ```
 
 #### `abs()`
@@ -210,7 +243,8 @@ clamp_length -> fn(max: double) Vec2
 Component-wise absolute values
 
 ```luma
-abs -> fn() Vec2
+abs -> fn(
+) Vec2
 ```
 
 #### `min()`
@@ -218,7 +252,9 @@ abs -> fn() Vec2
 Component-wise minimum with another vector
 
 ```luma
-min -> fn(other: Vec2) Vec2
+min -> fn(
+    other: Vec2
+) Vec2
 ```
 
 #### `max()`
@@ -226,7 +262,9 @@ min -> fn(other: Vec2) Vec2
 Component-wise maximum with another vector
 
 ```luma
-max -> fn(other: Vec2) Vec2
+max -> fn(
+    other: Vec2
+) Vec2
 ```
 
 #### `is_zero()`
@@ -234,76 +272,57 @@ max -> fn(other: Vec2) Vec2
 Check if the vector is the zero vector
 
 ```luma
-is_zero -> fn() bool
+is_zero -> fn(
+) bool
 ```
+
 
 ## Functions
 
-### public `new_vec`
+### `new_vec`
 
 Create a new Vec2 from x and y components
 
-Create a new Vec2 from x and y components
 
-# Parameters
-* `x` - X component
-* `y` - Y component
-
-Create a new Vec2 from x and y components
-
-# Parameters
-* `x` - X component
-* `y` - Y component
-
-# Returns
-A new Vec2
-
-
-**Signature:**
 ```luma
-pub const new_vec -> fn(x: double, y: double) Vec2;
+pub new_vec -> fn(
+    x: double,
+    y: double
+) Vec2
 ```
 
 **Parameters:**
 * `x` - X component
 * `y` - Y component
 
+
 **Returns:**
 A new Vec2
+
 
 **Example:**
 ```luma
 let v: Vec2 = vec2::new_vec(3.0, 4.0);
 ```
 
-### public `from_angle`
+### `from_angle`
 
 Create a unit vector from an angle in radians
 
-Create a unit vector from an angle in radians
 
-# Parameters
-* `angle` - Angle in radians
-
-Create a unit vector from an angle in radians
-
-# Parameters
-* `angle` - Angle in radians
-
-# Returns
-A unit vector pointing in the direction of the angle
-
-
-**Signature:**
 ```luma
-pub const from_angle -> fn(angle: double) Vec2;
+pub from_angle -> fn(
+    angle: double
+) Vec2
 ```
 
 **Parameters:**
 * `angle` - Angle in radians
 
+
 **Returns:**
 A unit vector pointing in the direction of the angle
+
 
 **Example:**
 ```luma

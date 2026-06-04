@@ -13,190 +13,235 @@ are all treated as int (opaque handles).
 - [Enumerations](#enumerations)
 - [Functions](#functions)
 - [Variables](#variables)
+- [Linked Libraries](#linked-libraries)
 
----
 
 ## Functions
 
-### public `pthread_create`
+### `pthread_create`
 
-**Signature:**
 ```luma
-pub const pthread_create -> fn(tid: *int, attr: *void, _fn: *void, arg: *void) int;
+pub pthread_create -> fn(
+    tid: *int,
+    attr: *void,
+    _fn: *void,
+    arg: *void
+) int
 ```
 
-### public `pthread_join`
+### `pthread_join`
 
-**Signature:**
 ```luma
-pub const pthread_join -> fn(tid: int, retval: *void) int;
+pub pthread_join -> fn(
+    tid: int,
+    retval: *void
+) int
 ```
 
-### public `pthread_detach`
+### `pthread_detach`
 
-**Signature:**
 ```luma
-pub const pthread_detach -> fn(tid: int) int;
+pub pthread_detach -> fn(
+    tid: int
+) int
 ```
 
-### public `pthread_self`
+### `pthread_self`
 
-**Signature:**
 ```luma
-pub const pthread_self -> fn() int;
+pub pthread_self -> fn(
+) int
 ```
 
-### public `pthread_exit`
+### `pthread_exit`
 
-**Signature:**
 ```luma
-pub const pthread_exit -> fn(retval: *void) void;
+pub pthread_exit -> fn(
+    retval: *void
+) void
 ```
 
-### public `pthread_equal`
+### `pthread_equal`
 
-**Signature:**
 ```luma
-pub const pthread_equal -> fn(t1: int, t2: int) int;
+pub pthread_equal -> fn(
+    t1: int,
+    t2: int
+) int
 ```
 
-### public `pthread_cancel`
+### `pthread_cancel`
 
-**Signature:**
 ```luma
-pub const pthread_cancel -> fn(tid: int) int;
+pub pthread_cancel -> fn(
+    tid: int
+) int
 ```
 
-### public `pthread_mutex_init`
+### `pthread_mutex_init`
 
-**Signature:**
 ```luma
-pub const pthread_mutex_init -> fn(mutex: *int, attr: *void) int;
+pub pthread_mutex_init -> fn(
+    mutex: *int,
+    attr: *void
+) int
 ```
 
-### public `pthread_mutex_destroy`
+### `pthread_mutex_destroy`
 
-**Signature:**
 ```luma
-pub const pthread_mutex_destroy -> fn(mutex: *int) int;
+pub pthread_mutex_destroy -> fn(
+    mutex: *int
+) int
 ```
 
-### public `pthread_mutex_lock`
+### `pthread_mutex_lock`
 
-**Signature:**
 ```luma
-pub const pthread_mutex_lock -> fn(mutex: *int) int;
+pub pthread_mutex_lock -> fn(
+    mutex: *int
+) int
 ```
 
-### public `pthread_mutex_trylock`
+### `pthread_mutex_trylock`
 
-**Signature:**
 ```luma
-pub const pthread_mutex_trylock -> fn(mutex: *int) int;
+pub pthread_mutex_trylock -> fn(
+    mutex: *int
+) int
 ```
 
-### public `pthread_mutex_unlock`
+### `pthread_mutex_unlock`
 
-**Signature:**
 ```luma
-pub const pthread_mutex_unlock -> fn(mutex: *int) int;
+pub pthread_mutex_unlock -> fn(
+    mutex: *int
+) int
 ```
 
-### public `pthread_cond_init`
+### `pthread_cond_init`
 
-**Signature:**
 ```luma
-pub const pthread_cond_init -> fn(cond: *int, attr: *void) int;
+pub pthread_cond_init -> fn(
+    cond: *int,
+    attr: *void
+) int
 ```
 
-### public `pthread_cond_destroy`
+### `pthread_cond_destroy`
 
-**Signature:**
 ```luma
-pub const pthread_cond_destroy -> fn(cond: *int) int;
+pub pthread_cond_destroy -> fn(
+    cond: *int
+) int
 ```
 
-### public `pthread_cond_wait`
+### `pthread_cond_wait`
 
-**Signature:**
 ```luma
-pub const pthread_cond_wait -> fn(cond: *int, mutex: *int) int;
+pub pthread_cond_wait -> fn(
+    cond: *int,
+    mutex: *int
+) int
 ```
 
-### public `pthread_cond_signal`
+### `pthread_cond_signal`
 
-**Signature:**
 ```luma
-pub const pthread_cond_signal -> fn(cond: *int) int;
+pub pthread_cond_signal -> fn(
+    cond: *int
+) int
 ```
 
-### public `pthread_cond_broadcast`
+### `pthread_cond_broadcast`
 
-**Signature:**
 ```luma
-pub const pthread_cond_broadcast -> fn(cond: *int) int;
+pub pthread_cond_broadcast -> fn(
+    cond: *int
+) int
 ```
 
-### public `pthread_rwlock_init`
+### `pthread_rwlock_init`
 
-**Signature:**
 ```luma
-pub const pthread_rwlock_init -> fn(rwlock: *int, attr: *void) int;
+pub pthread_rwlock_init -> fn(
+    rwlock: *int,
+    attr: *void
+) int
 ```
 
-### public `pthread_rwlock_destroy`
+### `pthread_rwlock_destroy`
 
-**Signature:**
 ```luma
-pub const pthread_rwlock_destroy -> fn(rwlock: *int) int;
+pub pthread_rwlock_destroy -> fn(
+    rwlock: *int
+) int
 ```
 
-### public `pthread_rwlock_rdlock`
+### `pthread_rwlock_rdlock`
 
-**Signature:**
 ```luma
-pub const pthread_rwlock_rdlock -> fn(rwlock: *int) int;
+pub pthread_rwlock_rdlock -> fn(
+    rwlock: *int
+) int
 ```
 
-### public `pthread_rwlock_wrlock`
+### `pthread_rwlock_wrlock`
 
-**Signature:**
 ```luma
-pub const pthread_rwlock_wrlock -> fn(rwlock: *int) int;
+pub pthread_rwlock_wrlock -> fn(
+    rwlock: *int
+) int
 ```
 
-### public `pthread_rwlock_unlock`
+### `pthread_rwlock_unlock`
 
-**Signature:**
 ```luma
-pub const pthread_rwlock_unlock -> fn(rwlock: *int) int;
+pub pthread_rwlock_unlock -> fn(
+    rwlock: *int
+) int
 ```
 
-### public `pthread_once`
+### `pthread_once`
 
-**Signature:**
 ```luma
-pub const pthread_once -> fn(once: *int, _fn: *void) int;
+pub pthread_once -> fn(
+    once: *int,
+    _fn: *void
+) int
 ```
 
-### public `pthread_barrier_init`
+### `pthread_barrier_init`
 
-**Signature:**
 ```luma
-pub const pthread_barrier_init -> fn(barrier: *int, attr: *void, count: int) int;
+pub pthread_barrier_init -> fn(
+    barrier: *int,
+    attr: *void,
+    count: int
+) int
 ```
 
-### public `pthread_barrier_destroy`
+### `pthread_barrier_destroy`
 
-**Signature:**
 ```luma
-pub const pthread_barrier_destroy -> fn(barrier: *int) int;
+pub pthread_barrier_destroy -> fn(
+    barrier: *int
+) int
 ```
 
-### public `pthread_barrier_wait`
+### `pthread_barrier_wait`
 
-**Signature:**
 ```luma
-pub const pthread_barrier_wait -> fn(barrier: *int) int;
+pub pthread_barrier_wait -> fn(
+    barrier: *int
+) int
 ```
+
+
+## Linked Libraries
+
+External native libraries linked by this module.
+
+> **FFI library:** `libpthread.so.0`
+>
 

@@ -21,648 +21,529 @@ For production macOS code, prefer libc wrappers.
 - [Enumerations](#enumerations)
 - [Functions](#functions)
 - [Variables](#variables)
+- [OS-Specific](#os-specific)
 
----
 
 ## Functions
 
-### public `exit`
+### `exit`
 
 PROCESS MANAGEMENT
 Terminate the current process with the given exit code.
-PROCESS MANAGEMENT
-Terminate the current process with the given exit code.
-PROCESS MANAGEMENT
-Terminate the current process with the given exit code.
 
-**Signature:**
 ```luma
-pub const exit -> fn(code: int) void;
+pub exit -> fn(
+    code: int
+) void
 ```
 
-### public `fork`
+### `fork`
 
 Fork the current process. Returns the child PID in the parent, 0 in the child.
-Fork the current process. Returns the child PID in the parent, 0 in the child.
-Fork the current process. Returns the child PID in the parent, 0 in the child.
 
-**Signature:**
 ```luma
-pub const fork -> fn() int;
+pub fork -> fn(
+) int
 ```
 
-### public `getpid`
+### `getpid`
 
 Return the PID of the calling process.
-Return the PID of the calling process.
-Return the PID of the calling process.
 
-**Signature:**
 ```luma
-pub const getpid -> fn() int;
+pub getpid -> fn(
+) int
 ```
 
-### public `getuid`
+### `getuid`
 
 Return the real user ID of the calling process.
-Return the real user ID of the calling process.
-Return the real user ID of the calling process.
 
-**Signature:**
 ```luma
-pub const getuid -> fn() int;
+pub getuid -> fn(
+) int
 ```
 
-### public `getgid`
+### `getgid`
 
 Return the real group ID of the calling process.
-Return the real group ID of the calling process.
-Return the real group ID of the calling process.
 
-**Signature:**
 ```luma
-pub const getgid -> fn() int;
+pub getgid -> fn(
+) int
 ```
 
-### public `kill`
+### `kill`
 
 Send signal `sig` to process `pid`.
-Send signal `sig` to process `pid`.
-Send signal `sig` to process `pid`.
 
-**Signature:**
 ```luma
-pub const kill -> fn(pid: int, sig: int) int;
+pub kill -> fn(
+    pid: int,
+    sig: int
+) int
 ```
 
-### public `wait4`
+### `wait4`
 
 Wait for a child process. Stores exit status in `status` if non-null.
-Wait for a child process. Stores exit status in `status` if non-null.
-Wait for a child process. Stores exit status in `status` if non-null.
 
-**Signature:**
 ```luma
-pub const wait4 -> fn(pid: int, status: *int, options: int, rusage: *void) int;
+pub wait4 -> fn(
+    pid: int,
+    status: *int,
+    options: int,
+    rusage: *void
+) int
 ```
 
-### public `execve`
+### `execve`
 
 Replace the current process image with a new one.
-Replace the current process image with a new one.
-Replace the current process image with a new one.
 
-**Signature:**
 ```luma
-pub const execve -> fn(path: *char, argv: **char, envp: **char) int;
+pub execve -> fn(
+    path: *char,
+    argv: **char,
+    envp: **char
+) int
 ```
 
-### public `read`
+### `read`
 
 FILE OPERATIONS
 Read up to `count` bytes from `fd` into `buf`. Returns bytes read or a negative errno.
-FILE OPERATIONS
-Read up to `count` bytes from `fd` into `buf`. Returns bytes read or a negative errno.
-FILE OPERATIONS
-Read up to `count` bytes from `fd` into `buf`. Returns bytes read or a negative errno.
 
-**Signature:**
 ```luma
-pub const read -> fn(fd: int, buf: *void, count: int) int;
+pub read -> fn(
+    fd: int,
+    buf: *void,
+    count: int
+) int
 ```
 
-### public `write`
+### `write`
 
 Write up to `count` bytes from `buf` to `fd`. Returns bytes written or a negative errno.
-Write up to `count` bytes from `buf` to `fd`. Returns bytes written or a negative errno.
-Write up to `count` bytes from `buf` to `fd`. Returns bytes written or a negative errno.
 
-**Signature:**
 ```luma
-pub const write -> fn(fd: int, buf: *void, count: int) int;
+pub write -> fn(
+    fd: int,
+    buf: *void,
+    count: int
+) int
 ```
 
-### public `open`
+### `open`
 
 Open a file at `path` with the given `flags` and `mode`. Returns an fd or a negative errno.
-Open a file at `path` with the given `flags` and `mode`. Returns an fd or a negative errno.
-Open a file at `path` with the given `flags` and `mode`. Returns an fd or a negative errno.
 
-**Signature:**
 ```luma
-pub const open -> fn(path: *char, flags: int, mode: int) int;
+pub open -> fn(
+    path: *char,
+    flags: int,
+    mode: int
+) int
 ```
 
-### public `close`
+### `close`
 
 Close the file descriptor `fd`.
-Close the file descriptor `fd`.
-Close the file descriptor `fd`.
 
-**Signature:**
 ```luma
-pub const close -> fn(fd: int) int;
+pub close -> fn(
+    fd: int
+) int
 ```
 
-### public `lseek`
+### `lseek`
 
 Reposition the file offset of `fd`. Returns the new offset or a negative errno.
-Reposition the file offset of `fd`. Returns the new offset or a negative errno.
-Reposition the file offset of `fd`. Returns the new offset or a negative errno.
 
-**Signature:**
 ```luma
-pub const lseek -> fn(fd: int, offset: int, whence: int) int;
+pub lseek -> fn(
+    fd: int,
+    offset: int,
+    whence: int
+) int
 ```
 
-### public `pread`
+### `pread`
 
 Read up to `count` bytes from `fd` at `offset` without changing the file position.
-Read up to `count` bytes from `fd` at `offset` without changing the file position.
-Read up to `count` bytes from `fd` at `offset` without changing the file position.
 
-**Signature:**
 ```luma
-pub const pread -> fn(fd: int, buf: *void, count: int, offset: int) int;
+pub pread -> fn(
+    fd: int,
+    buf: *void,
+    count: int,
+    offset: int
+) int
 ```
 
-### public `pwrite`
+### `pwrite`
 
 Write up to `count` bytes to `fd` at `offset` without changing the file position.
-Write up to `count` bytes to `fd` at `offset` without changing the file position.
-Write up to `count` bytes to `fd` at `offset` without changing the file position.
 
-**Signature:**
 ```luma
-pub const pwrite -> fn(fd: int, buf: *void, count: int, offset: int) int;
+pub pwrite -> fn(
+    fd: int,
+    buf: *void,
+    count: int,
+    offset: int
+) int
 ```
 
-### public `dup`
+### `dup`
 
 Duplicate file descriptor `oldfd`. Returns the new fd or a negative errno.
-Duplicate file descriptor `oldfd`. Returns the new fd or a negative errno.
-Duplicate file descriptor `oldfd`. Returns the new fd or a negative errno.
 
-**Signature:**
 ```luma
-pub const dup -> fn(oldfd: int) int;
+pub dup -> fn(
+    oldfd: int
+) int
 ```
 
-### public `dup2`
+### `dup2`
 
 Duplicate `oldfd` to `newfd`, closing `newfd` first if it is open.
-Duplicate `oldfd` to `newfd`, closing `newfd` first if it is open.
-Duplicate `oldfd` to `newfd`, closing `newfd` first if it is open.
 
-**Signature:**
 ```luma
-pub const dup2 -> fn(oldfd: int, newfd: int) int;
+pub dup2 -> fn(
+    oldfd: int,
+    newfd: int
+) int
 ```
 
-### public `pipe`
+### `pipe`
 
 Create a pipe. Writes the read and write fds into `pipefd[0]` and `pipefd[1]`.
-Create a pipe. Writes the read and write fds into `pipefd[0]` and `pipefd[1]`.
-Create a pipe. Writes the read and write fds into `pipefd[0]` and `pipefd[1]`.
 
-**Signature:**
 ```luma
-pub const pipe -> fn(pipefd: *int) int;
+pub pipe -> fn(
+    pipefd: *int
+) int
 ```
 
-### public `unlink`
+### `unlink`
 
 Delete the file at `path`.
-Delete the file at `path`.
-Delete the file at `path`.
 
-**Signature:**
 ```luma
-pub const unlink -> fn(path: *char) int;
+pub unlink -> fn(
+    path: *char
+) int
 ```
 
-### public `mkdir`
+### `mkdir`
 
 DIRECTORY OPERATIONS
 Create a directory at `path` with the given `mode`.
-DIRECTORY OPERATIONS
-Create a directory at `path` with the given `mode`.
-DIRECTORY OPERATIONS
-Create a directory at `path` with the given `mode`.
 
-**Signature:**
 ```luma
-pub const mkdir -> fn(path: *char, mode: int) int;
+pub mkdir -> fn(
+    path: *char,
+    mode: int
+) int
 ```
 
-### public `rmdir`
+### `rmdir`
 
 Remove the empty directory at `path`.
-Remove the empty directory at `path`.
-Remove the empty directory at `path`.
 
-**Signature:**
 ```luma
-pub const rmdir -> fn(path: *char) int;
+pub rmdir -> fn(
+    path: *char
+) int
 ```
 
-### public `chdir`
+### `chdir`
 
 Change the working directory to `path`.
-Change the working directory to `path`.
-Change the working directory to `path`.
 
-**Signature:**
 ```luma
-pub const chdir -> fn(path: *char) int;
+pub chdir -> fn(
+    path: *char
+) int
 ```
 
-### public `getcwd`
+### `getcwd`
 
 Get the current working directory into `buf`. Returns `buf` on success, null on failure.
-Get the current working directory into `buf`. Returns `buf` on success, null on failure.
-Get the current working directory into `buf`. Returns `buf` on success, null on failure.
 
-**Signature:**
 ```luma
-pub const getcwd -> fn(buf: *char, size: int) *char;
+pub getcwd -> fn(
+    buf: *char,
+    size: int
+) *char
 ```
 
-### public `brk`
+### `brk`
 
 MEMORY MANAGEMENT
 Adjust the program break to `addr`. Returns the new break or a negative errno.
-MEMORY MANAGEMENT
-Adjust the program break to `addr`. Returns the new break or a negative errno.
-MEMORY MANAGEMENT
-Adjust the program break to `addr`. Returns the new break or a negative errno.
 
-**Signature:**
 ```luma
-pub const brk -> fn(addr: *void) int;
+pub brk -> fn(
+    addr: *void
+) int
 ```
 
-### public `mmap`
+### `mmap`
 
 Map memory. Returns a pointer to the mapped region, or a negative errno cast to *void.
-Map memory. Returns a pointer to the mapped region, or a negative errno cast to *void.
-Map memory. Returns a pointer to the mapped region, or a negative errno cast to *void.
 
-**Signature:**
 ```luma
-pub const mmap -> fn(addr: *void, length: int, prot: int, flags: int, fd: int, offset: int) *void;
+pub mmap -> fn(
+    addr: *void,
+    length: int,
+    prot: int,
+    flags: int,
+    fd: int,
+    offset: int
+) *void
 ```
 
-### public `munmap`
+### `munmap`
 
 Unmap a previously mapped region.
-Unmap a previously mapped region.
-Unmap a previously mapped region.
 
-**Signature:**
 ```luma
-pub const munmap -> fn(addr: *void, length: int) int;
+pub munmap -> fn(
+    addr: *void,
+    length: int
+) int
 ```
 
-### public `is_error`
+### `is_error`
 
 HELPER FUNCTIONS
 Returns true if `result` represents a syscall error (i.e. in the range [-4095, -1]).
-HELPER FUNCTIONS
-Returns true if `result` represents a syscall error (i.e. in the range [-4095, -1]).
-HELPER FUNCTIONS
-Returns true if `result` represents a syscall error (i.e. in the range [-4095, -1]).
 
-**Signature:**
 ```luma
-pub const is_error -> fn(result: int) bool;
+pub is_error -> fn(
+    result: int
+) bool
 ```
 
-### public `get_errno`
+### `get_errno`
 
 Extract the errno value from a failed syscall result. Returns 0 if not an error.
-Extract the errno value from a failed syscall result. Returns 0 if not an error.
-Extract the errno value from a failed syscall result. Returns 0 if not an error.
 
-**Signature:**
 ```luma
-pub const get_errno -> fn(result: int) int;
+pub get_errno -> fn(
+    result: int
+) int
 ```
 
-### public `write_str`
+### `write_str`
 
 Write a null-terminated string to `fd`. Returns bytes written or a negative errno.
-Write a null-terminated string to `fd`. Returns bytes written or a negative errno.
-Write a null-terminated string to `fd`. Returns bytes written or a negative errno.
 
-**Signature:**
 ```luma
-pub const write_str -> fn(fd: int, s: *char) int;
+pub write_str -> fn(
+    fd: int,
+    s: *char
+) int
 ```
 
-### public `eprint`
+### `eprint`
 
 Write a null-terminated string to stderr.
-Write a null-terminated string to stderr.
-Write a null-terminated string to stderr.
 
-**Signature:**
 ```luma
-pub const eprint -> fn(s: *char) int;
+pub eprint -> fn(
+    s: *char
+) int
 ```
+
 
 ## Variables
 
-### public `O_RDONLY`
-
-**Type:** int (constant)
-
-FILE FLAGS
-O_ flags are mostly identical between Linux and macOS with a few exceptions.
-These three are the same everywhere
-
-### public `O_WRONLY`
-
-**Type:** int (constant)
-
-### public `O_RDWR`
-
-**Type:** int (constant)
-
-### public `S_IRWXU`
-
-**Type:** int (constant)
-
-FILE PERMISSIONS  (POSIX — identical on both platforms)
-
-### public `S_IRUSR`
-
-**Type:** int (constant)
-
-### public `S_IWUSR`
-
-**Type:** int (constant)
-
-### public `S_IXUSR`
-
-**Type:** int (constant)
-
-### public `S_IRWXG`
-
-**Type:** int (constant)
-
-### public `S_IRGRP`
-
-**Type:** int (constant)
-
-### public `S_IWGRP`
-
-**Type:** int (constant)
-
-### public `S_IXGRP`
-
-**Type:** int (constant)
-
-### public `S_IRWXO`
-
-**Type:** int (constant)
-
-### public `S_IROTH`
-
-**Type:** int (constant)
-
-### public `S_IWOTH`
-
-**Type:** int (constant)
-
-### public `S_IXOTH`
-
-**Type:** int (constant)
-
-### public `MODE_0644`
-
-**Type:** int (constant)
-
-### public `MODE_0755`
-
-**Type:** int (constant)
-
-### public `MODE_0777`
-
-**Type:** int (constant)
-
-### public `SEEK_SET`
-
-**Type:** int (constant)
-
-LSEEK WHENCE  (POSIX — identical on both platforms)
-
-### public `SEEK_CUR`
-
-**Type:** int (constant)
-
-### public `SEEK_END`
-
-**Type:** int (constant)
-
-### public `STDIN`
-
-**Type:** int (constant)
-
-STANDARD FILE DESCRIPTORS  (identical everywhere)
-
-### public `STDOUT`
-
-**Type:** int (constant)
-
-### public `STDERR`
-
-**Type:** int (constant)
-
-### public `PROT_NONE`
-
-**Type:** int (constant)
-
-MMAP PROTECTION FLAGS  (POSIX — identical on both platforms)
-
-### public `PROT_READ`
-
-**Type:** int (constant)
-
-### public `PROT_WRITE`
-
-**Type:** int (constant)
-
-### public `PROT_EXEC`
-
-**Type:** int (constant)
-
-### public `MAP_SHARED`
-
-**Type:** int (constant)
-
-MMAP FLAGS
-MAP_ANONYMOUS differs: Linux uses 32, macOS uses 4096.
-
-### public `MAP_PRIVATE`
-
-**Type:** int (constant)
-
-### public `MAP_FIXED`
-
-**Type:** int (constant)
-
-### public `SIGHUP`
-
-**Type:** int (constant)
-
-SIGNALS  (mostly POSIX, but SIGBUS/SIGCHLD positions differ slightly)
-
-### public `SIGINT`
-
-**Type:** int (constant)
-
-### public `SIGQUIT`
-
-**Type:** int (constant)
-
-### public `SIGILL`
-
-**Type:** int (constant)
-
-### public `SIGTRAP`
-
-**Type:** int (constant)
-
-### public `SIGABRT`
-
-**Type:** int (constant)
-
-### public `SIGFPE`
-
-**Type:** int (constant)
-
-### public `SIGKILL`
-
-**Type:** int (constant)
-
-### public `SIGSEGV`
-
-**Type:** int (constant)
-
-### public `SIGPIPE`
-
-**Type:** int (constant)
-
-### public `SIGALRM`
-
-**Type:** int (constant)
-
-### public `SIGTERM`
-
-**Type:** int (constant)
-
-### public `WNOHANG`
-
-**Type:** int (constant)
-
-WAIT FLAGS  (identical on both platforms)
-
-### public `WUNTRACED`
-
-**Type:** int (constant)
-
-### public `EPERM`
-
-**Type:** int (constant)
-
-ERRNO VALUES  (POSIX — same numbers on both platforms for these common ones)
-
-### public `ENOENT`
-
-**Type:** int (constant)
-
-### public `ESRCH`
-
-**Type:** int (constant)
-
-### public `EINTR`
-
-**Type:** int (constant)
-
-### public `EIO`
-
-**Type:** int (constant)
-
-### public `ENXIO`
-
-**Type:** int (constant)
-
-### public `E2BIG`
-
-**Type:** int (constant)
-
-### public `EBADF`
-
-**Type:** int (constant)
-
-### public `ECHILD`
-
-**Type:** int (constant)
-
-### public `EAGAIN`
-
-**Type:** int (constant)
-
-### public `ENOMEM`
-
-**Type:** int (constant)
-
-### public `EACCES`
-
-**Type:** int (constant)
-
-### public `EFAULT`
-
-**Type:** int (constant)
-
-### public `EBUSY`
-
-**Type:** int (constant)
-
-### public `EEXIST`
-
-**Type:** int (constant)
-
-### public `ENODEV`
-
-**Type:** int (constant)
-
-### public `ENOTDIR`
-
-**Type:** int (constant)
-
-### public `EISDIR`
-
-**Type:** int (constant)
-
-### public `EINVAL`
-
-**Type:** int (constant)
-
-### public `ENFILE`
-
-**Type:** int (constant)
-
-### public `EMFILE`
-
-**Type:** int (constant)
-
-### public `ENOSPC`
-
-**Type:** int (constant)
-
-### public `EPIPE`
-
-**Type:** int (constant)
+- **`O_RDONLY`** : int *(constant)* — FILE FLAGS
+- **`O_WRONLY`** : int *(constant)*
+- **`O_RDWR`** : int *(constant)*
+- **`S_IRWXU`** : int *(constant)* — FILE PERMISSIONS  (POSIX — identical on both platforms)
+- **`S_IRUSR`** : int *(constant)*
+- **`S_IWUSR`** : int *(constant)*
+- **`S_IXUSR`** : int *(constant)*
+- **`S_IRWXG`** : int *(constant)*
+- **`S_IRGRP`** : int *(constant)*
+- **`S_IWGRP`** : int *(constant)*
+- **`S_IXGRP`** : int *(constant)*
+- **`S_IRWXO`** : int *(constant)*
+- **`S_IROTH`** : int *(constant)*
+- **`S_IWOTH`** : int *(constant)*
+- **`S_IXOTH`** : int *(constant)*
+- **`MODE_0644`** : int *(constant)*
+- **`MODE_0755`** : int *(constant)*
+- **`MODE_0777`** : int *(constant)*
+- **`SEEK_SET`** : int *(constant)* — LSEEK WHENCE  (POSIX — identical on both platforms)
+- **`SEEK_CUR`** : int *(constant)*
+- **`SEEK_END`** : int *(constant)*
+- **`STDIN`** : int *(constant)* — STANDARD FILE DESCRIPTORS  (identical everywhere)
+- **`STDOUT`** : int *(constant)*
+- **`STDERR`** : int *(constant)*
+- **`PROT_NONE`** : int *(constant)* — MMAP PROTECTION FLAGS  (POSIX — identical on both platforms)
+- **`PROT_READ`** : int *(constant)*
+- **`PROT_WRITE`** : int *(constant)*
+- **`PROT_EXEC`** : int *(constant)*
+- **`MAP_SHARED`** : int *(constant)* — MMAP FLAGS
+- **`MAP_PRIVATE`** : int *(constant)*
+- **`MAP_FIXED`** : int *(constant)*
+- **`SIGHUP`** : int *(constant)* — SIGNALS  (mostly POSIX, but SIGBUS/SIGCHLD positions differ slightly)
+- **`SIGINT`** : int *(constant)*
+- **`SIGQUIT`** : int *(constant)*
+- **`SIGILL`** : int *(constant)*
+- **`SIGTRAP`** : int *(constant)*
+- **`SIGABRT`** : int *(constant)*
+- **`SIGFPE`** : int *(constant)*
+- **`SIGKILL`** : int *(constant)*
+- **`SIGSEGV`** : int *(constant)*
+- **`SIGPIPE`** : int *(constant)*
+- **`SIGALRM`** : int *(constant)*
+- **`SIGTERM`** : int *(constant)*
+- **`WNOHANG`** : int *(constant)* — WAIT FLAGS  (identical on both platforms)
+- **`WUNTRACED`** : int *(constant)*
+- **`EPERM`** : int *(constant)* — ERRNO VALUES  (POSIX — same numbers on both platforms for these common ones)
+- **`ENOENT`** : int *(constant)*
+- **`ESRCH`** : int *(constant)*
+- **`EINTR`** : int *(constant)*
+- **`EIO`** : int *(constant)*
+- **`ENXIO`** : int *(constant)*
+- **`E2BIG`** : int *(constant)*
+- **`EBADF`** : int *(constant)*
+- **`ECHILD`** : int *(constant)*
+- **`EAGAIN`** : int *(constant)*
+- **`ENOMEM`** : int *(constant)*
+- **`EACCES`** : int *(constant)*
+- **`EFAULT`** : int *(constant)*
+- **`EBUSY`** : int *(constant)*
+- **`EEXIST`** : int *(constant)*
+- **`ENODEV`** : int *(constant)*
+- **`ENOTDIR`** : int *(constant)*
+- **`EISDIR`** : int *(constant)*
+- **`EINVAL`** : int *(constant)*
+- **`ENFILE`** : int *(constant)*
+- **`EMFILE`** : int *(constant)*
+- **`ENOSPC`** : int *(constant)*
+- **`EPIPE`** : int *(constant)*
+
+## OS-Specific
+
+### `"linux"`
+
+- **`SYS_READ`** : int *(constant)*
+- **`SYS_WRITE`** : int *(constant)*
+- **`SYS_OPEN`** : int *(constant)*
+- **`SYS_CLOSE`** : int *(constant)*
+- **`SYS_STAT`** : int *(constant)*
+- **`SYS_FSTAT`** : int *(constant)*
+- **`SYS_LSTAT`** : int *(constant)*
+- **`SYS_LSEEK`** : int *(constant)*
+- **`SYS_MMAP`** : int *(constant)*
+- **`SYS_MUNMAP`** : int *(constant)*
+- **`SYS_BRK`** : int *(constant)*
+- **`SYS_IOCTL`** : int *(constant)*
+- **`SYS_PREAD`** : int *(constant)*
+- **`SYS_PWRITE`** : int *(constant)*
+- **`SYS_PIPE`** : int *(constant)*
+- **`SYS_SELECT`** : int *(constant)*
+- **`SYS_DUP`** : int *(constant)*
+- **`SYS_DUP2`** : int *(constant)*
+- **`SYS_GETPID`** : int *(constant)*
+- **`SYS_FORK`** : int *(constant)*
+- **`SYS_EXECVE`** : int *(constant)*
+- **`SYS_EXIT`** : int *(constant)*
+- **`SYS_WAIT4`** : int *(constant)*
+- **`SYS_KILL`** : int *(constant)*
+- **`SYS_FCNTL`** : int *(constant)*
+- **`SYS_GETCWD`** : int *(constant)*
+- **`SYS_CHDIR`** : int *(constant)*
+- **`SYS_MKDIR`** : int *(constant)*
+- **`SYS_RMDIR`** : int *(constant)*
+- **`SYS_UNLINK`** : int *(constant)*
+- **`SYS_GETUID`** : int *(constant)*
+- **`SYS_GETGID`** : int *(constant)*
+- **`SYS_GETTIMEOFDAY`** : int *(constant)*
+- **`SYS_CLOCK_GETTIME`** : int *(constant)*
+
+### `"macos"`
+
+- **`SYS_READ`** : int *(constant)* — macOS BSD syscall table (x86_64)
+- **`SYS_WRITE`** : int *(constant)*
+- **`SYS_OPEN`** : int *(constant)*
+- **`SYS_CLOSE`** : int *(constant)*
+- **`SYS_STAT`** : int *(constant)*
+- **`SYS_FSTAT`** : int *(constant)*
+- **`SYS_LSTAT`** : int *(constant)*
+- **`SYS_LSEEK`** : int *(constant)*
+- **`SYS_MMAP`** : int *(constant)*
+- **`SYS_MUNMAP`** : int *(constant)*
+- **`SYS_BRK`** : int *(constant)*
+- **`SYS_IOCTL`** : int *(constant)*
+- **`SYS_PREAD`** : int *(constant)*
+- **`SYS_PWRITE`** : int *(constant)*
+- **`SYS_PIPE`** : int *(constant)*
+- **`SYS_SELECT`** : int *(constant)*
+- **`SYS_DUP`** : int *(constant)*
+- **`SYS_DUP2`** : int *(constant)*
+- **`SYS_GETPID`** : int *(constant)*
+- **`SYS_FORK`** : int *(constant)*
+- **`SYS_EXECVE`** : int *(constant)*
+- **`SYS_EXIT`** : int *(constant)*
+- **`SYS_WAIT4`** : int *(constant)*
+- **`SYS_KILL`** : int *(constant)*
+- **`SYS_FCNTL`** : int *(constant)*
+- **`SYS_GETCWD`** : int *(constant)*
+- **`SYS_CHDIR`** : int *(constant)*
+- **`SYS_MKDIR`** : int *(constant)*
+- **`SYS_RMDIR`** : int *(constant)*
+- **`SYS_UNLINK`** : int *(constant)*
+- **`SYS_GETUID`** : int *(constant)*
+- **`SYS_GETGID`** : int *(constant)*
+- **`SYS_GETTIMEOFDAY`** : int *(constant)*
+- **`SYS_CLOCK_GETTIME`** : int *(constant)*
+
+### `"linux"`
+
+- **`O_CREAT`** : int *(constant)*
+- **`O_EXCL`** : int *(constant)*
+- **`O_NOCTTY`** : int *(constant)*
+- **`O_TRUNC`** : int *(constant)*
+- **`O_APPEND`** : int *(constant)*
+- **`O_NONBLOCK`** : int *(constant)*
+- **`O_DIRECTORY`** : int *(constant)*
+- **`O_CLOEXEC`** : int *(constant)*
+
+### `"macos"`
+
+- **`O_CREAT`** : int *(constant)*
+- **`O_EXCL`** : int *(constant)*
+- **`O_NOCTTY`** : int *(constant)*
+- **`O_TRUNC`** : int *(constant)*
+- **`O_APPEND`** : int *(constant)*
+- **`O_NONBLOCK`** : int *(constant)*
+- **`O_DIRECTORY`** : int *(constant)*
+- **`O_CLOEXEC`** : int *(constant)*
+
+### `"linux"`
+
+- **`MAP_ANONYMOUS`** : int *(constant)*
+- **`MAP_ANON`** : int *(constant)*
+
+### `"macos"`
+
+- **`MAP_ANONYMOUS`** : int *(constant)*
+- **`MAP_ANON`** : int *(constant)*
+
+### `"linux"`
+
+- **`SIGBUS`** : int *(constant)*
+- **`SIGCHLD`** : int *(constant)*
+
+### `"macos"`
+
+- **`SIGBUS`** : int *(constant)*
+- **`SIGCHLD`** : int *(constant)*
 

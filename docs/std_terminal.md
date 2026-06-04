@@ -29,11 +29,10 @@ string::putbyte(key);
 - [Functions](#functions)
 - [Variables](#variables)
 
----
 
 ## Functions
 
-### public `enable_raw_mode`
+### `enable_raw_mode`
 
 Enables raw terminal mode for blocking character input
 
@@ -44,87 +43,40 @@ In raw mode:
 - Cursor is hidden
 
 This blocks waiting for input. Call disable_raw_mode() when done.
-Enables raw terminal mode for blocking character input
 
-In raw mode:
-- Input is read character-by-character (no line buffering)
-- Echo is disabled (typed characters don't appear)
-- Special keys like Ctrl+C don't generate signals
-- Cursor is hidden
-
-This blocks waiting for input. Call disable_raw_mode() when done.
-Enables raw terminal mode for blocking character input
-
-In raw mode:
-- Input is read character-by-character (no line buffering)
-- Echo is disabled (typed characters don't appear)
-- Special keys like Ctrl+C don't generate signals
-- Cursor is hidden
-
-This blocks waiting for input. Call disable_raw_mode() when done.
-
-**Signature:**
 ```luma
-pub const enable_raw_mode -> fn() void;
+pub enable_raw_mode -> fn(
+) void
 ```
 
-### public `disable_raw_mode`
+### `disable_raw_mode`
 
 Disables raw mode and restores normal terminal settings
 
 Restores the terminal to its state before enable_raw_mode() was called.
 Shows the cursor and resets colors.
-Disables raw mode and restores normal terminal settings
 
-Restores the terminal to its state before enable_raw_mode() was called.
-Shows the cursor and resets colors.
-Disables raw mode and restores normal terminal settings
-
-Restores the terminal to its state before enable_raw_mode() was called.
-Shows the cursor and resets colors.
-
-**Signature:**
 ```luma
-pub const disable_raw_mode -> fn() void;
+pub disable_raw_mode -> fn(
+) void
 ```
 
-### public `getch_raw`
+### `getch_raw`
 
 Reads a single character in raw mode (blocking)
 
 Waits for a key press and returns it immediately without requiring Enter.
 Automatically enables raw mode if not already enabled.
 
-# Returns
-The character that was pressed
 
-# Example
 ```luma
-terminal::enable_raw_mode();
-defer { terminal::disable_raw_mode(); }
-let ch: byte = terminal::getch_raw();
-```
-Reads a single character in raw mode (blocking)
-
-Waits for a key press and returns it immediately without requiring Enter.
-Automatically enables raw mode if not already enabled.
-
-Reads a single character in raw mode (blocking)
-
-Waits for a key press and returns it immediately without requiring Enter.
-Automatically enables raw mode if not already enabled.
-
-# Returns
-The character that was pressed
-
-
-**Signature:**
-```luma
-pub const getch_raw -> fn() char;
+pub getch_raw -> fn(
+) char
 ```
 
 **Returns:**
 The character that was pressed
+
 
 **Example:**
 ```luma
@@ -133,66 +85,36 @@ defer { terminal::disable_raw_mode(); }
 let ch: byte = terminal::getch_raw();
 ```
 
-### public `getch`
+### `getch`
 
 Gets a single character without waiting for Enter
 
 Simple character input without modifying terminal settings.
 
-# Returns
-The character that was entered
-Gets a single character without waiting for Enter
 
-Simple character input without modifying terminal settings.
-
-Gets a single character without waiting for Enter
-
-Simple character input without modifying terminal settings.
-
-# Returns
-The character that was entered
-
-**Signature:**
 ```luma
-pub const getch -> fn() char;
+pub getch -> fn(
+) char
 ```
 
 **Returns:**
 The character that was entered
 
-### public `getch_silent`
+### `getch_silent`
 
 Gets a single character without echo (silent input)
 
 Temporarily disables echo, reads one character, then restores echo.
 
-# Returns
-The character that was pressed (not displayed)
 
-# Example
 ```luma
-output("Enter secret code: ");
-let code: byte = terminal::getch_silent();
-```
-Gets a single character without echo (silent input)
-
-Temporarily disables echo, reads one character, then restores echo.
-
-Gets a single character without echo (silent input)
-
-Temporarily disables echo, reads one character, then restores echo.
-
-# Returns
-The character that was pressed (not displayed)
-
-
-**Signature:**
-```luma
-pub const getch_silent -> fn() char;
+pub getch_silent -> fn(
+) char
 ```
 
 **Returns:**
 The character that was pressed (not displayed)
+
 
 **Example:**
 ```luma
@@ -200,92 +122,50 @@ output("Enter secret code: ");
 let code: byte = terminal::getch_silent();
 ```
 
-### public `getche`
+### `getche`
 
 Gets a single character with echo
 
 Reads one character and displays it.
 
-# Returns
-The character that was entered
-Gets a single character with echo
 
-Reads one character and displays it.
-
-Gets a single character with echo
-
-Reads one character and displays it.
-
-# Returns
-The character that was entered
-
-**Signature:**
 ```luma
-#returns_ownership pub const getche -> fn() char;
+#returns_ownership
+pub getche -> fn(
+) char
 ```
 
 **Returns:**
 The character that was entered
 
-### public `kbhit`
+### `kbhit`
 
 Checks if a key is pressed (non-blocking)
 
 Tests for available input without blocking.
 
-# Returns
-1 if a key is available, 0 otherwise
 
-# Warning
-This consumes the character! Don't use in raw mode.
-Checks if a key is pressed (non-blocking)
-
-Tests for available input without blocking.
-
-Checks if a key is pressed (non-blocking)
-
-Tests for available input without blocking.
-
-# Returns
-1 if a key is available, 0 otherwise
-
-# Warning
-This consumes the character! Don't use in raw mode.
-
-**Signature:**
 ```luma
-pub const kbhit -> fn() int;
+pub kbhit -> fn(
+) int
 ```
 
 **Returns:**
 1 if a key is available, 0 otherwise
 
-### public `wait_for_key`
+# Warning
+This consumes the character! Don't use in raw mode.
+
+### `wait_for_key`
 
 Waits for any key press with prompt
 
 Displays a prompt and waits for any key to be pressed.
 
-# Example
+
 ```luma
-terminal::wait_for_key();
-```
-Waits for any key press with prompt
-
-Displays a prompt and waits for any key to be pressed.
-
-# Example
-```luma
-terminal::wait_for_key();
-```
-Waits for any key press with prompt
-
-Displays a prompt and waits for any key to be pressed.
-
-
-**Signature:**
-```luma
-pub const wait_for_key -> fn() void;
+pub wait_for_key -> fn(
+) void
 ```
 
 **Example:**
@@ -293,60 +173,39 @@ pub const wait_for_key -> fn() void;
 terminal::wait_for_key();
 ```
 
-### public `clear_input_buffer`
+### `clear_input_buffer`
 
 Clears the input buffer
 
 Reads and discards any pending input.
-Clears the input buffer
 
-Reads and discards any pending input.
-Clears the input buffer
-
-Reads and discards any pending input.
-
-**Signature:**
 ```luma
-pub const clear_input_buffer -> fn() void;
+pub clear_input_buffer -> fn(
+) void
 ```
 
-### public `getpass`
+### `getpass`
 
 Gets password input with hidden characters
 
 Displays a prompt and reads input without echo, showing asterisks
 for each character typed. Handles backspace.
 
-Gets password input with hidden characters
 
-Displays a prompt and reads input without echo, showing asterisks
-for each character typed. Handles backspace.
-
-# Parameters
-* `prompt` - Prompt to display before reading
-
-Gets password input with hidden characters
-
-Displays a prompt and reads input without echo, showing asterisks
-for each character typed. Handles backspace.
-
-# Parameters
-* `prompt` - Prompt to display before reading
-
-# Returns
-Newly allocated string containing the password
-
-
-**Signature:**
 ```luma
-#returns_ownership pub const getpass -> fn(prompt: *char) *char;
+#returns_ownership
+pub getpass -> fn(
+    prompt: *char
+) *char
 ```
 
 **Parameters:**
 * `prompt` - Prompt to display before reading
 
+
 **Returns:**
 Newly allocated string containing the password
+
 
 **Example:**
 ```luma
@@ -355,40 +214,22 @@ defer { free(pass); }
 // ... use password ...
 ```
 
-### public `sleep_ms`
+### `sleep_ms`
 
 Sleeps for milliseconds
 
 More precise than system("sleep"). Uses usleep internally.
 
-Sleeps for milliseconds
 
-More precise than system("sleep"). Uses usleep internally.
-
-# Parameters
-* `ms` - Milliseconds to sleep
-
-# Example
 ```luma
-output("Waiting...\n");
-terminal::sleep_ms(1000); // Wait 1 second
-output("Done!\n");
-```
-Sleeps for milliseconds
-
-More precise than system("sleep"). Uses usleep internally.
-
-# Parameters
-* `ms` - Milliseconds to sleep
-
-
-**Signature:**
-```luma
-pub const sleep_ms -> fn(ms: int) void;
+pub sleep_ms -> fn(
+    ms: int
+) void
 ```
 
 **Parameters:**
 * `ms` - Milliseconds to sleep
+
 
 **Example:**
 ```luma
@@ -397,59 +238,31 @@ terminal::sleep_ms(1000); // Wait 1 second
 output("Done!\n");
 ```
 
-### public `get_terminal_size`
+### `get_terminal_size`
 
 Gets terminal size (stub - writes to temp files)
 
 Writes terminal dimensions to temporary files.
 Implementation incomplete - needs file reading.
-Gets terminal size (stub - writes to temp files)
 
-Writes terminal dimensions to temporary files.
-Implementation incomplete - needs file reading.
-Gets terminal size (stub - writes to temp files)
-
-Writes terminal dimensions to temporary files.
-Implementation incomplete - needs file reading.
-
-**Signature:**
 ```luma
-pub const get_terminal_size -> fn() void;
+pub get_terminal_size -> fn(
+) void
 ```
 
-### public `get_line`
+### `get_line`
 
 Reads a line of input with prompt
 
 Displays a prompt and reads characters until Enter is pressed.
 
-Reads a line of input with prompt
 
-Displays a prompt and reads characters until Enter is pressed.
-
-# Parameters
-* `prompt` - Prompt to display
-* `buffer` - Buffer to store input
-* `size` - Size of buffer
-
-# Example
 ```luma
-let buffer: [byte; 100];
-terminal::get_line("Enter name: ", &buffer[0], 100);
-```
-Reads a line of input with prompt
-
-Displays a prompt and reads characters until Enter is pressed.
-
-# Parameters
-* `prompt` - Prompt to display
-* `buffer` - Buffer to store input
-* `size` - Size of buffer
-
-
-**Signature:**
-```luma
-pub const get_line -> fn(prompt: *char, buffer: *char, size: int) void;
+pub get_line -> fn(
+    prompt: *char,
+    buffer: *char,
+    size: int
+) void
 ```
 
 **Parameters:**
@@ -457,17 +270,14 @@ pub const get_line -> fn(prompt: *char, buffer: *char, size: int) void;
 * `buffer` - Buffer to store input
 * `size` - Size of buffer
 
+
 **Example:**
 ```luma
 let buffer: [byte; 100];
 terminal::get_line("Enter name: ", &buffer[0], 100);
 ```
+
 
 ## Variables
 
-### private `raw_mode_enabled`
-
-**Type:** int (mutable)
-
-Global flag to track raw mode state
-
+- **`raw_mode_enabled`** : int *(mutable)* — Global flag to track raw mode state
