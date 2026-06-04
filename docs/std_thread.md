@@ -7,28 +7,6 @@ PLATFORM: Linux x86_64
 Wraps libpthread — pthread_t, pthread_mutex_t, and pthread_cond_t
 are all treated as int (opaque handles).
 
-# Example
-```luma
-let tid: int = 0;
-let mutex: [int; 10] = cast<[int; 10]>(0);
-
-// Init mutex
-std_thread::pthread_mutex_init(&mutex, cast<*void>(0));
-
-// Thread function
-let thread_fn: fn(*void) *void = fn(args: *void) *void {
-    std_thread::pthread_mutex_lock(&mutex);
-    // ... critical section ...
-    std_thread::pthread_mutex_unlock(&mutex);
-    return cast<*void>(0);
-};
-
-// Create and join thread
-std_thread::pthread_create(&tid, cast<*void>(0), thread_fn, cast<*void>(0));
-std_thread::pthread_join(tid, cast<**void>(0));
-std_thread::pthread_mutex_destroy(&mutex);
-```
-
 ## Table of Contents
 
 - [Structures](#structures)
@@ -37,7 +15,6 @@ std_thread::pthread_mutex_destroy(&mutex);
 - [Variables](#variables)
 - [Linked Libraries](#linked-libraries)
 
----
 
 ## Functions
 
