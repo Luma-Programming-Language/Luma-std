@@ -185,7 +185,7 @@ pub write_buffer_to_file -> fn(
 - **`STDOUT`** : int *(constant)*
 - **`STDERR`** : int *(constant)*
 
-### `"windows"`
+### `"windows64"`
 
 - **`GENERIC_READ`** : int *(constant)*
 - **`GENERIC_WRITE`** : int *(constant)*
