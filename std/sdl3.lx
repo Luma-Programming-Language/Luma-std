@@ -1,4 +1,4 @@
-@module "sdl3"
+@module "std_sdl3"
 
 @os {
     "linux"   -> { @link("libSDL3.so") }

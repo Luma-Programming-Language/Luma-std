@@ -1,4 +1,4 @@
-# Module: sdl3
+# Module: std_sdl3
 
 ## Table of Contents
 

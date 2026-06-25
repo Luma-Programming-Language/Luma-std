@@ -1,17 +1,4 @@
-# Module: std_string
-
-String manipulation and conversion utilities
-
-This module provides functions for working with null-terminated C-style strings,
-including concatenation, comparison, conversion, and character classification.
-All strings are represented as pointers to byte arrays (`*byte`) and must be
-null-terminated.
-
-This module is completely self-contained with no external dependencies.
-
-# Memory Management
-Functions that create new strings (prefixed with `from_` or returning `#returns_ownership`)
-allocate memory that the caller must free. Use `defer { free(str); }` to ensure cleanup.
+# Module: string
 
 ## Table of Contents
 
@@ -24,561 +11,382 @@ allocate memory that the caller must free. Use `defer { free(str); }` to ensure 
 
 ## Structures
 
-### `Slice`
-
-String slice with pointer and length
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `ptr` | *char |  |
-| `len` | int |  |
-
-**Methods:**
-
-#### `slice_end()`
-
-```luma
-slice_end -> fn(
-) *char
-```
-
-#### `null_terminated_slice()`
-
-```luma
-null_terminated_slice -> fn(
-    s: *char
-) Slice
-```
-
 ### `String`
 
-String with slice and capacity
+A heap-allocated, growable string.
+
+Fields:
+  `data` — null-terminated byte buffer
+  `len`  — number of characters, excluding the null terminator
+  `cap`  — total allocated bytes, including the null terminator slot
+
+Always construct via `string_new`, `string_from`, or `string_with_capacity`.
+Never set `data` manually — the struct assumes it owns the buffer.
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `slice` | Slice |  |
+| `data` | *char |  |
+| `len` | int |  |
 | `cap` | int |  |
 
 **Methods:**
 
-#### `concat_strs()`
+#### `empty()`
+
+Returns true if the string contains no characters.
+
+```luma
+empty -> fn(
+) bool
+```
+
+#### `c_str()`
+
+Returns the raw null-terminated pointer. Safe to pass to C-style APIs.
+
+```luma
+c_str -> fn(
+) *char
+```
+
+#### `length()`
+
+Returns the number of characters (excluding null terminator).
+
+```luma
+length -> fn(
+) int
+```
+
+#### `capacity()`
+
+Returns the total allocated capacity (including null terminator slot).
+
+```luma
+capacity -> fn(
+) int
+```
+
+#### `at()`
+
+Returns the byte at `index`, or '\0' if the index is out of bounds.
+
+```luma
+at -> fn(
+    index: int
+) char
+```
+
+#### `equals()`
+
+Returns true if this string's contents equal the null-terminated `other`.
+Returns false if either pointer is null.
+
+```luma
+equals -> fn(
+    other: *char
+) bool
+```
+
+#### `equals_str()`
+
+Returns true if this string equals another `String`.
+Returns false if `other` is null.
+
+```luma
+equals_str -> fn(
+    other: *String
+) bool
+```
+
+#### `clear()`
+
+Clears the string content without freeing or reallocating the buffer.
+After this call `len` is 0 and `data[0]` is '\0'.
+
+```luma
+clear -> fn(
+) void
+```
+
+#### `reserve()`
+
+Ensures the buffer has at least `new_cap` bytes of capacity.
+Reallocates and copies existing content if needed.
+No-op if `new_cap` is already satisfied.
 
 ```luma
 #returns_ownership
-concat_strs -> fn(
-    start: *Slice,
-    len: int
+reserve -> fn(
+    new_cap: int
+) void
+```
+
+#### `append()`
+
+Appends a null-terminated `*byte` string to the end of this string.
+Grows the buffer with a doubling strategy if needed.
+No-op if `s` is null or empty.
+
+```luma
+#returns_ownership
+append -> fn(
+    s: *char
+) void
+```
+
+#### `append_str()`
+
+Appends the contents of another `String` to this one.
+No-op if `other` is null.
+
+```luma
+#returns_ownership
+append_str -> fn(
+    other: *String
+) void
+```
+
+#### `append_char()`
+
+Appends a single byte character to this string.
+Grows the buffer if needed.
+
+```luma
+#returns_ownership
+append_char -> fn(
+    c: char
+) void
+```
+
+#### `prepend()`
+
+Inserts a null-terminated `*byte` string at the beginning of this string.
+Grows the buffer with a doubling strategy if needed.
+No-op if `s` is null or empty.
+
+```luma
+#returns_ownership
+prepend -> fn(
+    s: *char
+) void
+```
+
+#### `substring()`
+
+Returns a newly allocated `String` containing bytes `[start, end)`.
+Clamps `start` to 0 and `end` to `len` if out of range.
+Returns an empty null String `{ data: null, len: 0, cap: 0 }` if the
+range is empty or inverted. Caller must free the result.
+
+```luma
+#returns_ownership
+substring -> fn(
+    start: int,
+    end: int
 ) String
 ```
 
-#### `as_slice()`
+#### `find_char()`
+
+Returns the index of the first occurrence of byte `c`, or -1 if not found.
 
 ```luma
-as_slice -> fn(
-) Slice
+find_char -> fn(
+    c: char
+) int
+```
+
+#### `contains_char()`
+
+Returns true if byte `c` appears anywhere in the string.
+
+```luma
+contains_char -> fn(
+    c: char
+) bool
+```
+
+#### `starts_with()`
+
+Returns true if this string starts with the null-terminated `prefix`.
+Returns false if `prefix` is null or longer than the string.
+
+```luma
+starts_with -> fn(
+    prefix: *char
+) bool
+```
+
+#### `ends_with()`
+
+Returns true if this string ends with the null-terminated `suffix`.
+Returns false if `suffix` is null or longer than the string.
+
+```luma
+ends_with -> fn(
+    suffix: *char
+) bool
+```
+
+#### `find()`
+
+Returns the index of the first occurrence of the null-terminated substring,
+or -1 if not found. Returns 0 if `substr` is empty. Returns -1 if null.
+
+```luma
+find -> fn(
+    substr: *char
+) int
+```
+
+#### `contains()`
+
+Returns true if the null-terminated `substr` appears anywhere in the string.
+
+```luma
+contains -> fn(
+    substr: *char
+) bool
+```
+
+#### `trim_start()`
+
+Removes leading whitespace (space, tab, newline, carriage return) in place.
+Shifts remaining content to the front of the buffer; does not reallocate.
+
+```luma
+#returns_ownership
+trim_start -> fn(
+) void
+```
+
+#### `trim_end()`
+
+Removes trailing whitespace (space, tab, newline, carriage return) in place.
+Writes null terminators as it walks backward; does not reallocate.
+
+```luma
+#returns_ownership
+trim_end -> fn(
+) void
+```
+
+#### `trim()`
+
+Removes both leading and trailing whitespace in place.
+Equivalent to calling `trim_start()` then `trim_end()`.
+
+```luma
+#returns_ownership
+trim -> fn(
+) void
+```
+
+#### `to_upper()`
+
+Converts all ASCII lowercase letters (a-z) to uppercase in place.
+
+```luma
+#returns_ownership
+to_upper -> fn(
+) void
+```
+
+#### `to_lower()`
+
+Converts all ASCII uppercase letters (A-Z) to lowercase in place.
+
+```luma
+#returns_ownership
+to_lower -> fn(
+) void
 ```
 
 
 ## Functions
 
-### `cat`
+### `string_new`
+
+Creates a new empty `String` with an initial capacity of 16 bytes.
+Caller must free with `string_free`.
 
 ```luma
-pub cat -> fn(
-    dest: *char,
-    s1: *char,
-    s2: *char
-) *char
+#returns_ownership
+pub string_new -> fn(
+) String
 ```
 
-### `free_string`
+### `string_from`
+
+Creates a `String` by copying a null-terminated `*byte` string.
+If `s` is null, returns an empty string via `string_new`.
+Caller must free with `string_free`.
 
 ```luma
-#takes_ownership
-pub free_string -> fn(
-    s: *String
-) void
-```
-
-### `strlen`
-
-Returns the length of a null-terminated string
-
-Counts characters until the null terminator is found.
-
-
-```luma
-pub strlen -> fn(
+#returns_ownership
+pub string_from -> fn(
     s: *char
-) int
+) String
 ```
 
-**Parameters:**
-* `s` - String to measure
+### `string_with_capacity`
 
-
-**Returns:**
-Number of characters before null terminator
-
-
-**Example:**
-```luma
-let len: int = string::strlen("Hello");
-// len will be 5
-```
-
-### `from_byte`
-
-Converts a single byte to a string
-
-Creates a 2-byte string containing the character and a null terminator.
-
+Creates an empty `String` pre-allocated to at least `cap` bytes.
+Useful when the final size is known in advance to avoid reallocations.
+Minimum capacity is 16 if `cap` < 1. Caller must free with `string_free`.
 
 ```luma
 #returns_ownership
-pub from_byte -> fn(
-    c: char
-) *char
+pub string_with_capacity -> fn(
+    cap: int
+) String
 ```
 
-**Parameters:**
-* `c` - Character to convert
+### `string_clone`
 
-
-**Returns:**
-Newly allocated string containing the character
-
-
-**Example:**
-```luma
-let str: *byte = string::from_byte('A');
-defer { free(str); }
-output(str); // Prints "A"
-```
-
-### `from_int`
-
-Converts an integer to a string
-
-Handles both positive and negative integers. For zero, returns "0".
-
+Creates a deep copy of an existing `String`.
+If `s` is null, returns an empty string via `string_new`.
+Caller must free the returned string with `string_free`.
 
 ```luma
 #returns_ownership
-pub from_int -> fn(
-    n: int
-) *char
-```
-
-**Parameters:**
-* `n` - Integer to convert
-
-
-**Returns:**
-Newly allocated string representation of the integer
-
-
-**Example:**
-```luma
-let str: *byte = string::from_int(-42);
-defer { free(str); }
-output(str); // Prints "-42"
-```
-
-### `from_float`
-
-Converts a float to a string with specified precision
-
-Separates integer and fractional parts, then combines them with
-a decimal point. Precision determines number of decimal places.
-
-
-```luma
-#returns_ownership
-pub from_float -> fn(
-    f: float,
-    precision: int
-) *char
-```
-
-**Parameters:**
-* `f` - Float value to convert
-* `precision` - Number of decimal places to include
-
-
-**Returns:**
-Newly allocated string representation of the float
-
-
-**Example:**
-```luma
-let str: *byte = string::from_float(3.14159, 2);
-defer { free(str); }
-output(str); // Prints "3.14"
+pub string_clone -> fn(
+    s: *String
+) String
 ```
 
 ### `int_to_str`
 
-Converts integer to string into a provided buffer
-
-Writes the string representation directly into the provided buffer
-instead of allocating new memory.
-
-
-```luma
-pub int_to_str -> fn(
-    num: int,
-    buf: *char,
-    buf_size: int
-) void
-```
-
-**Parameters:**
-* `num` - Integer to convert
-* `buf` - Buffer to write string into
-* `buf_size` - Size of buffer in bytes
-
-
-**Example:**
-```luma
-let buffer: [byte; 32];
-string::int_to_str(12345, &buffer[0], 32);
-output(&buffer[0]); // Prints "12345"
-```
-
-### `strcmp`
-
-Compares two strings for equality
-
-First checks if lengths differ, then compares contents byte by byte.
-
-
-```luma
-pub strcmp -> fn(
-    s1: *char,
-    s2: *char
-) int
-```
-
-**Parameters:**
-* `s1` - First string
-* `s2` - Second string
-
-
-**Returns:**
-* `0` if strings are equal
-* `-1` if lengths differ
-* `1` if contents differ but lengths match
-
-
-**Example:**
-```luma
-if (string::strcmp("hello", "hello") == 0) {
-    output("Strings are equal\n");
-}
-```
-
-### `strncmp`
-
-```luma
-pub strncmp -> fn(
-    s1: *char,
-    s2: *char,
-    n: int
-) int
-```
-
-### `s_byte`
-
-Searches for a character in a string
-
-Returns the first occurrence of the character, or null byte if not found.
-
-
-```luma
-pub s_byte -> fn(
-    s: *char,
-    c: int
-) char
-```
-
-**Parameters:**
-* `s` - String to search
-* `c` - Character to find (as int)
-
-
-**Returns:**
-The matching character if found, null byte otherwise
-
-
-**Example:**
-```luma
-let ch: byte = string::s_byte("Hello", cast<int>('l'));
-if (ch != cast<byte>(0)) {
-    output("Found 'l'\n");
-}
-```
-
-### `copy`
-
-Copies a string from source to destination
-
-Copies characters including the null terminator.
-
-
-```luma
-pub copy -> fn(
-    dest: *char,
-    src: *char
-) *char
-```
-
-**Parameters:**
-* `dest` - Destination buffer (must be large enough)
-* `src` - Source string
-
-
-**Returns:**
-Destination pointer
-
-
-**Example:**
-```luma
-let buffer: [byte; 100];
-string::copy(&buffer[0], "Hello");
-```
-
-### `n_copy`
-
-Copies at most n bytes of a string
-
-Stops at null terminator or after n characters, whichever comes first.
-
-
-```luma
-pub n_copy -> fn(
-    dest: *char,
-    src: *char,
-    n: int
-) *char
-```
-
-**Parameters:**
-* `dest` - Destination buffer
-* `src` - Source string
-* `n` - Maximum bytes to copy
-
-
-**Returns:**
-Destination pointer
-
-
-**Example:**
-```luma
-let buffer: [byte; 10];
-string::n_copy(&buffer[0], "Hello World", 5); // Copies "Hello"
-```
-
-### `cat`
-
-Concatenates two strings into a destination buffer
-
-Writes s1 followed by s2 into dest, with null terminator.
-
-
-```luma
-pub cat -> fn(
-    dest: *char,
-    s1: *char,
-    s2: *char
-) *char
-```
-
-**Parameters:**
-* `dest` - Destination buffer (must be large enough)
-* `s1` - First string
-* `s2` - Second string
-
-
-**Returns:**
-Destination pointer
-
-
-**Example:**
-```luma
-let buffer: [byte; 100];
-string::cat(&buffer[0], "Hello ", "World");
-output(&buffer[0]); // Prints "Hello World"
-```
-
-### `putbyte`
-
-Outputs a single character to the terminal
-
-Handles special characters with proper shell escaping using system commands.
-Special handling for newline, tab, quotes, backslash, etc.
-
-
-```luma
-pub putbyte -> fn(
-    c: char
-) int
-```
-
-**Parameters:**
-* `c` - Character to output
-
-
-**Returns:**
-The character as an int
-
-
-**Example:**
-```luma
-string::putbyte('A');
-string::putbyte('\n');
-```
-
-### `is_digit`
-
-Checks if a character is a digit (0-9)
-
-
-```luma
-pub is_digit -> fn(
-    ch: char
-) bool
-```
-
-**Parameters:**
-* `ch` - Character to test
-
-
-**Returns:**
-true if character is '0' through '9', false otherwise
-
-
-**Example:**
-```luma
-if (string::is_digit('5')) {
-    output("It's a digit!\n");
-}
-```
-
-### `is_alpha`
-
-Checks if a character is alphabetic or underscore
-
-Accepts uppercase letters (A-Z), lowercase letters (a-z),
-underscore (_), and at sign (@).
-
-
-```luma
-pub is_alpha -> fn(
-    ch: char
-) bool
-```
-
-**Parameters:**
-* `ch` - Character to test
-
-
-**Returns:**
-true if alphabetic or underscore/at, false otherwise
-
-
-**Example:**
-```luma
-if (string::is_alpha('_')) {
-    output("Valid identifier character\n");
-}
-```
-
-### `is_alnum`
-
-Checks if a character is alphanumeric
-
-Returns true if character is a letter, digit, underscore, or at sign.
-
-
-```luma
-pub is_alnum -> fn(
-    ch: char
-) bool
-```
-
-**Parameters:**
-* `ch` - Character to test
-
-
-**Returns:**
-true if alphanumeric, false otherwise
-
-
-**Example:**
-```luma
-if (string::is_alnum('A')) {
-    output("Valid identifier character\n");
-}
-```
-
-### `atio`
-
-Converts ASCII string to integer
-
-Parses digits from the string until a non-digit character is encountered.
-Does not handle negative numbers or leading whitespace.
-
-
-```luma
-pub atio -> fn(
-    value: *char
-) int
-```
-
-**Parameters:**
-* `value` - String to parse
-
-
-**Returns:**
-Parsed integer value
-
-
-**Example:**
-```luma
-let num: int = string::atio("12345");
-// num will be 12345
-```
-
-### `string_add`
-
-Adds two large integers represented as strings
-
-Performs arbitrary-precision addition digit by digit with carry propagation.
-Both input strings must contain only digits.
+Converts a non-negative integer to a `String`.
+Uses a fixed 12-byte stack buffer for digit extraction then copies to heap.
+Only handles non-negative values — negative input produces incorrect output.
+Caller must free with `string_free`.
 
 
 ```luma
 #returns_ownership
-pub string_add -> fn(
-    num1: *char,
-    num2: *char
-) *char
+pub int_to_str -> fn(
+    n: int
+) String
 ```
 
-**Parameters:**
-* `num1` - First number as string
-* `num2` - Second number as string
-
-
-**Returns:**
-Sum as newly allocated string
-
-
 **Example:**
+```
+let s: String = int_to_str(42);
+defer { string_free(&s); }
+```
+
+### `string_free`
+
+Frees the internal buffer of a `String` and zeroes its fields.
+Safe to call on a null pointer (no-op). After this call the `String`
+must not be used — its `data` pointer is set to null.
+
 ```luma
-let result: *byte = string::string_add("999", "1");
-defer { free(result); }
-output(result); // Prints "1000"
+#takes_ownership
+pub string_free -> fn(
+    s: *String
+) void
 ```
 
